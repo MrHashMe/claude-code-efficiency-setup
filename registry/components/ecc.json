@@ -1,0 +1,45 @@
+{
+  "id": "ecc",
+  "name": "ECC and other large packs",
+  "kind": "pack",
+  "origin": "third-party",
+  "license": "MIT",
+  "roles": ["workflow-pack"],
+  "exclusive": false,
+  "verdict": "Hold",
+  "defaultOn": false,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "Large agent, skill, hook and rule packs. v8 never installs or removes them; verify reports their always-loaded cost and overlaps. ECC 2.2.x projects about 33k always-loaded tokens per session (claude plugin details, 2026-11-02).",
+  "evidence": [
+    {
+      "id": "ecc-load-measured",
+      "source": "claude plugin details ecc@ecc (ECC 2.2.3, Claude Code 2.1.303)",
+      "date": "2026-11-02",
+      "measuredBy": "maintainer",
+      "tier": "E4",
+      "setting": "user-scope install on the maintainer's machine",
+      "effect": "about 33k always-loaded tokens per session; no paired quality-and-token result for the pack exists",
+      "qualityMeasured": false,
+      "status": "Verified"
+    }
+  ],
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "none", "optional": "MCP servers and hooks the pack ships" },
+  "requestPath": "none",
+  "runsHooks": true,
+  "alwaysLoaded": { "perSessionTokens": 33456, "perSubagentTokens": 0 },
+  "userStateOutsideScope": true,
+  "agents": {
+    "claude": {
+      "minVersion": "2.1.281",
+      "testedVersion": "2.1.303",
+      "scopes": [],
+      "detect": { "plugins": ["ecc@ecc"], "rulesDirs": ["rules/ecc"] }
+    }
+  },
+  "conflicts": [],
+  "revisit": ["an independent paired quality-and-token result for the pack"],
+  "maintenance": "Third-party pack with frequent releases.",
+  "freshnessDays": 90
+}

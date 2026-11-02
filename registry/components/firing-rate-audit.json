@@ -1,0 +1,47 @@
+{
+  "id": "firing-rate-audit",
+  "name": "Firing-rate audit (TokenEconomizer idea TE-T4)",
+  "kind": "engine",
+  "origin": "owned",
+  "license": "MIT",
+  "roles": ["rule-audit"],
+  "exclusive": false,
+  "verdict": "Trial",
+  "defaultOn": false,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "An offline transcript scan that flags owned rules and memory entries that never change behavior, so always-loaded text can shrink instead of only growing. A design idea from TokenEconomizer, not measured anywhere. Planned for v8.2; running memory-lint by hand is the simpler alternative.",
+  "evidence": [
+    {
+      "id": "tokeneconomizer-te-t4",
+      "source": "https://github.com/microsoft/TokenEconomizer (idea labeled TE-T4 in docs/v8/02-landscape.md section 3)",
+      "date": "2026-10-13",
+      "measuredBy": "none",
+      "tier": "E4",
+      "setting": "Design idea; no measurement exists",
+      "effect": "Rules that never fire could be removed to cut always-loaded tokens (expected, not measured)",
+      "qualityMeasured": false,
+      "status": "Assumption"
+    }
+  ],
+  "killTest": {
+    "id": "K-TE-T4",
+    "hypothesis": "Rules that never fire can be removed safely",
+    "baseline": "Current rules",
+    "pass": "A removed rule is rediscovered in fewer than 2 of the next 10 sessions",
+    "budget": "10 sessions per removal",
+    "ifFails": "That kind of removal isn't proposed again",
+    "scheduled": "v8.2 (maintenance automation); its exit criteria require K-TE-T4 to have run"
+  },
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "none", "optional": "none" },
+  "requestPath": "none",
+  "runsHooks": false,
+  "alwaysLoaded": { "perSessionTokens": 0, "perSubagentTokens": 0 },
+  "userStateOutsideScope": false,
+  "agents": { "claude": { "minVersion": "2.1.281", "scopes": [] } },
+  "conflicts": [],
+  "revisit": ["K-TE-T4 result"],
+  "maintenance": "Owned engine feature, maintained with the engine.",
+  "freshnessDays": 180
+}

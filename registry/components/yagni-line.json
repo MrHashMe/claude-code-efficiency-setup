@@ -1,0 +1,54 @@
+{
+  "id": "yagni-line",
+  "name": "One-line minimal-change rule",
+  "kind": "content",
+  "origin": "owned",
+  "license": "MIT",
+  "roles": ["minimal-change"],
+  "exclusive": true,
+  "verdict": "Trial",
+  "defaultOn": false,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "\"Make the smallest change that solves the task; add no features, abstractions or dependencies nobody asked for.\" The reference arm for Ponytail, about 30 tokens.",
+  "evidence": [
+    {
+      "id": "ponytail-issue-685",
+      "source": "https://github.com/DietrichGebert/ponytail/issues/685",
+      "date": "2026-08-04",
+      "measuredBy": "user-generated",
+      "tier": "E5",
+      "setting": "a different one-sentence prompt (asking for a runnable check), Sonnet 5, Claude Code 2.1.220",
+      "effect": "cost -5.8% [-11.7, +1.1] vs no add-on (not significant); no test of this wording",
+      "qualityMeasured": true,
+      "status": "Inferred"
+    }
+  ],
+  "killTest": {
+    "id": "K-PONYTAIL",
+    "hypothesis": "Ponytail 5.3.3 beats both no add-on and the one-line rule",
+    "baseline": "No add-on; one-line rule",
+    "pass": "Wins against both, with Bash on, instruction files present and subagents allowed",
+    "budget": "40 tasks x 3 arms x 2 runs; 2 weeks",
+    "ifFails": "Assess; existing users see the result with an offer to remove",
+    "scheduled": "maintainer reference bench after v8.0"
+  },
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "none", "optional": "none" },
+  "requestPath": "none",
+  "runsHooks": false,
+  "alwaysLoaded": { "perSessionTokens": 35, "perSubagentTokens": 35 },
+  "userStateOutsideScope": false,
+  "agents": {
+    "claude": {
+      "minVersion": "2.1.281",
+      "testedVersion": "2.1.303",
+      "scopes": ["user", "project", "local"],
+      "content": ["content/rules/30-yagni.md"]
+    }
+  },
+  "conflicts": ["ponytail"],
+  "revisit": ["K-PONYTAIL result"],
+  "maintenance": "Owned text, maintained in this repository.",
+  "freshnessDays": 180
+}

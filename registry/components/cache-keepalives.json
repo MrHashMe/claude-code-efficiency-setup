@@ -1,0 +1,49 @@
+{
+  "id": "cache-keepalives",
+  "name": "Cache keepalives and warmers",
+  "kind": "plugin",
+  "origin": "third-party",
+  "license": "unknown",
+  "roles": ["cache-keepalive"],
+  "exclusive": false,
+  "verdict": "Reject",
+  "defaultOn": false,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "Tools that send extra turns so the prompt cache doesn't expire while a session sits idle. Rejected: only user reports support them, each keepalive is an extra paid turn, and native idle compaction (Claude Code 2.1.299) covers the costly case of a large session left idle.",
+  "evidence": [
+    {
+      "id": "cc-2.1.299-idle-compaction",
+      "source": "https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md (Claude Code 2.1.299)",
+      "date": "2026-10-14",
+      "measuredBy": "none",
+      "tier": "E4",
+      "setting": "Changelog",
+      "effect": "Idle compaction in the terminal for sessions over 200K tokens left idle about 54 minutes",
+      "qualityMeasured": false,
+      "status": "Verified"
+    },
+    {
+      "id": "keepalive-user-reports",
+      "source": "User reports cited in docs/v8/03-admission-ledger.md; not listed in docs/v8/14-sources.md",
+      "date": "2026-11-01",
+      "measuredBy": "user-generated",
+      "tier": "E5",
+      "setting": "User reports",
+      "effect": "Claimed savings from keeping the cache warm; no measurement found",
+      "qualityMeasured": false,
+      "status": "Unknown"
+    }
+  ],
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "extra turns sent to the model provider", "optional": "not reviewed" },
+  "requestPath": "none",
+  "runsHooks": false,
+  "alwaysLoaded": { "perSessionTokens": 0, "perSubagentTokens": 0 },
+  "userStateOutsideScope": false,
+  "agents": { "claude": { "minVersion": "2.1.281", "scopes": [] } },
+  "conflicts": [],
+  "revisit": ["a native regression shown by a paired test"],
+  "maintenance": "Several small third-party tools, not tracked one by one.",
+  "freshnessDays": 90
+}

@@ -1,0 +1,65 @@
+{
+  "id": "rules",
+  "name": "Working rules",
+  "kind": "content",
+  "origin": "owned",
+  "license": "MIT",
+  "roles": ["working-rules"],
+  "exclusive": false,
+  "verdict": "Trial",
+  "defaultOn": true,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "Seven short rules: read relevant line ranges, delegate only when a summary is enough, check narrowly then fully, filter long output without hiding errors, no unrequested work, concise prose that keeps caveats, suggest /clear on a task switch.",
+  "evidence": [
+    {
+      "id": "rules-mechanism",
+      "source": "PLAYBOOK.md v7.3 working rules",
+      "date": "2026-10",
+      "measuredBy": "none",
+      "tier": "E4",
+      "setting": "mechanism only, no paired test of these rules",
+      "effect": "fewer wasted reads, re-runs and long outputs (expected, not measured)",
+      "qualityMeasured": false,
+      "status": "Assumption"
+    },
+    {
+      "id": "context-files-arxiv-2602-11988",
+      "source": "https://arxiv.org/abs/2602.11988",
+      "date": "2026-09-29",
+      "measuredBy": "independent",
+      "tier": "E1",
+      "setting": "repository context files (AGENTS.md style), not short behavior rules",
+      "effect": "no general gain in task success and over 20% more inference cost on average",
+      "qualityMeasured": true,
+      "status": "Verified"
+    }
+  ],
+  "killTest": {
+    "id": "K-RULES",
+    "hypothesis": "The working rules lower cost per accepted task",
+    "baseline": "No rules",
+    "pass": "Wins: cost-ratio interval below 1 and pass-rate difference interval above -5 points",
+    "budget": "40 tasks x 2 arms x 2 runs; 2 weeks",
+    "ifFails": "Off by default; kept as an option",
+    "scheduled": "v8.0 maintainer reference bench, first run after release"
+  },
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "none", "optional": "none" },
+  "requestPath": "none",
+  "runsHooks": false,
+  "alwaysLoaded": { "perSessionTokens": 225, "perSubagentTokens": 225 },
+  "userStateOutsideScope": false,
+  "agents": {
+    "claude": {
+      "minVersion": "2.1.281",
+      "testedVersion": "2.1.303",
+      "scopes": ["user", "project", "local"],
+      "content": ["content/rules/20-working-rules.md"]
+    }
+  },
+  "conflicts": [],
+  "revisit": ["K-RULES result"],
+  "maintenance": "Owned text, maintained in this repository.",
+  "freshnessDays": 180
+}

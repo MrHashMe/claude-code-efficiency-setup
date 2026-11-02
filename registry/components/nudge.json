@@ -1,0 +1,57 @@
+{
+  "id": "nudge",
+  "name": "Verify nudge",
+  "kind": "engine",
+  "origin": "owned",
+  "license": "MIT",
+  "roles": ["drift-notice"],
+  "exclusive": false,
+  "verdict": "Trial",
+  "defaultOn": false,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "Optional session-start message to the user (not added to Claude's context), at most once a week, when the last verify run found problems. Reads cached findings only, makes no network call, 5-second timeout. User scope only.",
+  "evidence": [
+    {
+      "id": "nudge-mechanism",
+      "source": "docs/v8/03-admission-ledger.md",
+      "date": "2026-11-01",
+      "measuredBy": "none",
+      "tier": "E4",
+      "setting": "mechanism only",
+      "effect": "drift gets noticed without running verify by hand (expected, not measured)",
+      "qualityMeasured": false,
+      "status": "Assumption"
+    }
+  ],
+  "killTest": {
+    "id": "K-NUDGE",
+    "hypothesis": "The nudge costs nothing noticeable",
+    "baseline": "No hook",
+    "pass": "p95 hook runtime at most 200 ms under Windows PowerShell 5.1 and Git Bash; fires at most weekly; zero hook errors in 30 days of fixture CI",
+    "budget": "30 days",
+    "ifFails": "Removed",
+    "scheduled": "fixture CI, 30 days after v8.0"
+  },
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "none", "optional": "none" },
+  "requestPath": "none",
+  "runsHooks": true,
+  "alwaysLoaded": { "perSessionTokens": 0, "perSubagentTokens": 0 },
+  "userStateOutsideScope": false,
+  "agents": {
+    "claude": {
+      "minVersion": "2.1.281",
+      "testedVersion": "2.1.303",
+      "scopes": ["user"],
+      "content": ["content/nudge.mjs"],
+      "settings": {
+        "/hooks/SessionStart/-": { "matcher": "startup", "hooks": [{ "type": "command", "command": "node \"<configDir>/efficiency-playbook/nudge.mjs\"", "timeout": 5 }] }
+      }
+    }
+  },
+  "conflicts": [],
+  "revisit": ["K-NUDGE result"],
+  "maintenance": "Owned script, maintained in this repository.",
+  "freshnessDays": 180
+}

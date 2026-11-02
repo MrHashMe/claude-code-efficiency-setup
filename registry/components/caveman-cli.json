@@ -1,0 +1,49 @@
+{
+  "id": "caveman-cli",
+  "name": "Caveman CLI, proxy and cloud router",
+  "kind": "service",
+  "origin": "third-party",
+  "license": "unknown",
+  "roles": ["output-length"],
+  "exclusive": true,
+  "verdict": "Reject",
+  "defaultOn": false,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "Caveman's CLI, its cache-warming proxy and its cloud router. Rejected: the proxy and router sit in the request path, the CLI sends usage stats with a random install ID and the IP address by default since v3.0.0, and Caveman Cloud \"Auto\" uploads each request with CLAUDE.md and memory once the user signs in and picks it.",
+  "evidence": [
+    {
+      "id": "caveman-v3.0.0-telemetry",
+      "source": "https://github.com/JuliusBrussee/caveman/releases/tag/v3.0.0",
+      "date": "2026-09-30",
+      "measuredBy": "none",
+      "tier": "E4",
+      "setting": "Release notes",
+      "effect": "The CLI and its agent hooks send usage stats with a random install ID and the IP address, on by default",
+      "qualityMeasured": false,
+      "status": "Verified"
+    },
+    {
+      "id": "caveman-readme-v4.0.1",
+      "source": "https://github.com/JuliusBrussee/caveman/blob/v4.0.1/README.md",
+      "date": "2026-10-13",
+      "measuredBy": "none",
+      "tier": "E4",
+      "setting": "README",
+      "effect": "A proxy; \"Auto\" sends each request, with CLAUDE.md and memory, to Caveman Cloud once the user signs in and picks it",
+      "qualityMeasured": false,
+      "status": "Verified"
+    }
+  ],
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "usage stats with a random install ID and the IP address, on by default since v3.0.0", "optional": "Caveman Cloud \"Auto\" sends each request, with CLAUDE.md and memory, after sign-in" },
+  "requestPath": "proxy",
+  "runsHooks": true,
+  "alwaysLoaded": { "perSessionTokens": 0, "perSubagentTokens": 0 },
+  "userStateOutsideScope": true,
+  "agents": { "claude": { "minVersion": "2.1.281", "scopes": [] } },
+  "conflicts": ["concise"],
+  "revisit": [],
+  "maintenance": "Third-party tool with frequent releases (v4.0.1 on 2026-10-13).",
+  "freshnessDays": 90
+}

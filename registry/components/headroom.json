@@ -1,0 +1,71 @@
+{
+  "id": "headroom",
+  "name": "Headroom",
+  "kind": "service",
+  "origin": "third-party",
+  "license": "Apache-2.0",
+  "roles": ["tool-output"],
+  "exclusive": true,
+  "verdict": "Reject",
+  "defaultOn": false,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "Compresses tool outputs, logs and files before they reach the model; library, proxy and MCP modes. Rejected on negative evidence: the vendor claims about 20%, but two sponsor-run tests found cost +52.8% on long sessions (THOL) and +44% (Dasein); OptScale's vendor-run write-up found -8.2%. Native output caps and large MCP results saved to a file cover the job.",
+  "evidence": [
+    {
+      "id": "headroom-vendor-claim",
+      "source": "https://github.com/headroomlabs-ai/headroom",
+      "date": "2026-01-07",
+      "measuredBy": "vendor",
+      "tier": "E5",
+      "setting": "Vendor claim in the repository; no method recorded",
+      "effect": "About 20% fewer tokens",
+      "qualityMeasured": false,
+      "status": "Verified"
+    },
+    {
+      "id": "thol-headroom",
+      "source": "https://pi-infected.github.io/token-harness-optimizer-leaderboard/ (Token harness optimizer leaderboard)",
+      "date": "2026-07-18",
+      "measuredBy": "vendor",
+      "tier": "E5",
+      "setting": "Sponsor-run leaderboard (THOL), long sessions; quality results not recorded in the v8 docs, so no higher than E5",
+      "effect": "Cost +52.8%",
+      "qualityMeasured": false,
+      "status": "Verified"
+    },
+    {
+      "id": "headroom-dasein-bench",
+      "source": "https://github.com/daseinlabs/code-compression-bench",
+      "date": "2026-09-22",
+      "measuredBy": "vendor",
+      "tier": "E2",
+      "setting": "Sponsor-run benchmark data",
+      "effect": "Tokens +6%, cost +44%",
+      "qualityMeasured": true,
+      "status": "Verified"
+    },
+    {
+      "id": "headroom-optscale",
+      "source": "https://optscale.ai/blog/context-compression-coding-agents (OptScale blog: context compression for coding agents)",
+      "date": "2026-10-14",
+      "measuredBy": "vendor",
+      "tier": "E5",
+      "setting": "Vendor-run by OptScale, which sells a competing compressor; quality for Headroom not recorded in the v8 docs",
+      "effect": "Cost -8.2%",
+      "qualityMeasured": false,
+      "status": "Verified"
+    }
+  ],
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "not reviewed", "optional": "not reviewed" },
+  "requestPath": "none",
+  "runsHooks": false,
+  "alwaysLoaded": { "perSessionTokens": 0, "perSubagentTokens": 0 },
+  "userStateOutsideScope": false,
+  "agents": { "claude": { "minVersion": "2.1.281", "scopes": [] } },
+  "conflicts": [],
+  "revisit": ["an independent paired test with lower cost per accepted task, with nothing in the request path"],
+  "maintenance": "Third-party project created 2026-01-07; release cadence not reviewed.",
+  "freshnessDays": 90
+}

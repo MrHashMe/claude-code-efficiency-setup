@@ -1,0 +1,49 @@
+{
+  "id": "benjamin-plus",
+  "name": "benjamin-plus",
+  "kind": "content",
+  "origin": "third-party",
+  "license": "MIT",
+  "roles": ["working-rules"],
+  "exclusive": true,
+  "verdict": "Hold",
+  "defaultOn": false,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "JetBrains' skill of read and check habits, about 745 tokens per session. Hold for Claude Code: the only Claude Code result is JetBrains' own, and its unchanged control drifted 10.5% between runs. For Codex the ledger says Assess, with a bench arm in v8.1. No commits since 2026-08-25.",
+  "evidence": [
+    {
+      "id": "benjamin-plus-expected-results",
+      "source": "https://github.com/JetBrains/benjamin-plus-skill/blob/main/EXPECTED-RESULTS.md",
+      "date": "2026-08-16",
+      "measuredBy": "vendor",
+      "tier": "E2",
+      "setting": "JetBrains' own tool and runs on Claude Code; v6 final run on 2026-08-16",
+      "effect": "Median cost -17.9% (p = 0.005), -16.7% on totals; the unchanged control moved +10.5% median between the 2026-08-15 and 2026-08-16 runs",
+      "qualityMeasured": true,
+      "status": "Verified"
+    },
+    {
+      "id": "benjamin-plus-codex",
+      "source": "https://github.com/JetBrains/benjamin-plus-skill",
+      "date": "2026-08-25",
+      "measuredBy": "vendor",
+      "tier": "E2",
+      "setting": "Codex CLI with gpt-5.6-luna, 675 paired replicas",
+      "effect": "Cost -4.4% [-7.5, -1.5], p = 0.003, solve rate unchanged",
+      "qualityMeasured": true,
+      "status": "Verified"
+    }
+  ],
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "not reviewed", "optional": "not reviewed" },
+  "requestPath": "none",
+  "runsHooks": false,
+  "alwaysLoaded": { "perSessionTokens": 745, "perSubagentTokens": 0 },
+  "userStateOutsideScope": false,
+  "agents": { "claude": { "minVersion": "2.1.281", "scopes": [] } },
+  "conflicts": ["rules"],
+  "revisit": ["an independent paired result", "a Codex maintainer bench win"],
+  "maintenance": "JetBrains repository; last commit 2026-08-25.",
+  "freshnessDays": 180
+}

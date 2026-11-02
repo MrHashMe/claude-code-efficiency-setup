@@ -1,0 +1,38 @@
+{
+  "id": "frontend-design",
+  "name": "frontend-design (official plugin)",
+  "kind": "plugin",
+  "origin": "first-party",
+  "license": "Apache-2.0",
+  "roles": ["ui-design"],
+  "exclusive": false,
+  "verdict": "Assess",
+  "defaultOn": false,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "Official plugin with a model-invocable skill for UI work. Not offered by setup, because bench v2 can't measure UI quality. The manual keeps v7's advice: only for a new frontend without a design system, installed for that repository only. It pulls against Ponytail on UI work.",
+  "evidence": [
+    {
+      "id": "playbook-v7-frontend-design",
+      "source": "PLAYBOOK.md v7.3 (frontend-design: new frontends only, repo scope); https://github.com/anthropics/claude-plugins-official/tree/main/plugins/frontend-design",
+      "date": "2026-09-29",
+      "measuredBy": "none",
+      "tier": "E4",
+      "setting": "v7 guidance; no measurement",
+      "effect": "Helps new frontends without a design system (expected, not measured)",
+      "qualityMeasured": false,
+      "status": "Assumption"
+    }
+  ],
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "none", "optional": "none" },
+  "requestPath": "none",
+  "runsHooks": false,
+  "alwaysLoaded": { "perSessionTokens": 0, "perSubagentTokens": 0 },
+  "userStateOutsideScope": false,
+  "agents": { "claude": { "minVersion": "2.1.281", "scopes": [], "detect": { "plugins": ["frontend-design@claude-plugins-official"] } } },
+  "conflicts": ["ponytail"],
+  "revisit": ["the bench gains a UI grader"],
+  "maintenance": "First-party plugin in the official marketplace.",
+  "freshnessDays": 180
+}

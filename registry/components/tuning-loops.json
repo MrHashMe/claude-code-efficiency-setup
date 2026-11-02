@@ -1,0 +1,38 @@
+{
+  "id": "tuning-loops",
+  "name": "Trace-driven tuning loops",
+  "kind": "engine",
+  "origin": "owned",
+  "license": "MIT",
+  "roles": ["tuning"],
+  "exclusive": false,
+  "verdict": "Assess",
+  "defaultOn": false,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "A loop that changes the harness configuration from observed failures in run traces and keeps the cost and quality winners, as in HarnessPro (arXiv 2610.26770) and similar research systems. Assess: research-grade and costly to run. If built, it is v8.3 or later, opt-in and propose-only; the bench plus a human decision is the simpler alternative.",
+  "evidence": [
+    {
+      "id": "arxiv-2610.26770",
+      "source": "https://arxiv.org/abs/2610.26770 (HarnessPro: Recursive Harness Self-Improvement with Pareto Optimization for Performance-Cost Trade-offs)",
+      "date": "2026-10-19",
+      "measuredBy": "author",
+      "tier": "E4",
+      "setting": "Research system; its results aren't recorded in the v8 docs, so only the mechanism is used here",
+      "effect": "Changes the harness, not the weights, from observed failures, keeping configurations on the cost-quality Pareto front",
+      "qualityMeasured": false,
+      "status": "Verified"
+    }
+  ],
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "none", "optional": "none" },
+  "requestPath": "none",
+  "runsHooks": false,
+  "alwaysLoaded": { "perSessionTokens": 0, "perSubagentTokens": 0 },
+  "userStateOutsideScope": false,
+  "agents": { "claude": { "minVersion": "2.1.281", "scopes": [] } },
+  "conflicts": [],
+  "revisit": ["an independent replication saving 15% or more at non-inferior quality"],
+  "maintenance": "Not built.",
+  "freshnessDays": 180
+}

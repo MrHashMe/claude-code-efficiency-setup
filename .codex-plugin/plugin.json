@@ -1,6 +1,6 @@
 {
   "name": "efficiency-playbook",
-  "version": "7.4.0",
+  "version": "8.0.0",
   "description": "Installs, upgrades or rolls back an evidence-based, token-efficient Codex setup on Windows by running Part 1 of the bundled Codex playbook, asking before each change.",
   "author": {
     "name": "MrHashMe",
@@ -14,7 +14,7 @@
   "interface": {
     "displayName": "Efficiency Playbook",
     "shortDescription": "Evidence-based, token-efficient Codex setup for Windows",
-    "longDescription": "Runs Part 1 of the bundled Codex playbook: short global working rules, a command map in the project's AGENTS.md, two explicit-only skills, and four opt-in config questions (Fast mode, auto-review, secrets in commands, Context7). It asks before each change, backs up every file it edits, and records a manifest for rollback.",
+    "longDescription": "Runs Part 1 of the bundled Codex playbook: short global working rules, a command map in the project's AGENTS.md, two explicit-only skills, and four opt-in config questions (Fast mode, auto-review, secrets in commands, Context7). It asks before each change, backs up every file it edits, and records a manifest for rollback. Version 8.0 changes the Claude Code side only; this Codex playbook is unchanged from 7.4 until the engine's Codex adapter in 8.1.",
     "developerName": "MrHashMe",
     "category": "Productivity",
     "capabilities": ["Interactive", "Read", "Write"],

@@ -1,0 +1,38 @@
+{
+  "id": "usage-dashboards",
+  "name": "Usage dashboards and statuslines",
+  "kind": "plugin",
+  "origin": "third-party",
+  "license": "unknown",
+  "roles": ["usage-reporting"],
+  "exclusive": false,
+  "verdict": "Hold",
+  "defaultOn": false,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "Third-party trackers, dashboards and statusline scripts that report token use and cost. Held: they only monitor, and native /usage and /cost cover it, including a cache line and warnings for always-on context and large results. A statusline command is executable configuration, which verify reports (EP-UNOWNED-EXECUTABLE-CONFIG).",
+  "evidence": [
+    {
+      "id": "native-usage-reports",
+      "source": "docs/v8/02-landscape.md section 10 (native /cost cache line, 2.1.251; /usage warnings, 2.1.299 and 2.1.311)",
+      "date": "2026-11-01",
+      "measuredBy": "none",
+      "tier": "E4",
+      "setting": "List of native features that replaced add-ons",
+      "effect": "Native /cost shows cache use, and /usage flags large misses, always-on context and large results",
+      "qualityMeasured": false,
+      "status": "Unknown"
+    }
+  ],
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "not reviewed", "optional": "not reviewed" },
+  "requestPath": "none",
+  "runsHooks": false,
+  "alwaysLoaded": { "perSessionTokens": 0, "perSubagentTokens": 0 },
+  "userStateOutsideScope": false,
+  "agents": { "claude": { "minVersion": "2.1.281", "scopes": [] } },
+  "conflicts": [],
+  "revisit": ["native reports lose per-session detail"],
+  "maintenance": "Many third-party tools, not tracked one by one.",
+  "freshnessDays": 180
+}

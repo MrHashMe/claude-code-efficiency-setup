@@ -1,0 +1,60 @@
+{
+  "id": "context-mode",
+  "name": "Context Mode",
+  "kind": "plugin",
+  "origin": "third-party",
+  "license": "Elastic-2.0",
+  "roles": ["tool-output"],
+  "exclusive": true,
+  "verdict": "Hold",
+  "defaultOn": false,
+  "reversible": false,
+  "verdictDate": "2026-11-01",
+  "summary": "A sandboxed MCP server whose tools fetch and filter bulky data before it reaches the context, plus hooks on six events. Held: native output caps (Claude Code 2.1.261) and large MCP results saved to a file cover most cases. It keeps its own snapshot at compaction and adds a SessionStart hook to user settings that uninstalling leaves behind.",
+  "evidence": [
+    {
+      "id": "cc-2.1.261-output-caps",
+      "source": "https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md (Claude Code 2.1.261)",
+      "date": "2026-09-04",
+      "measuredBy": "none",
+      "tier": "E4",
+      "setting": "Changelog",
+      "effect": "bashOutputMaxChars and taskOutputMaxChars keep up to 128K of output inline before it is saved to a file",
+      "qualityMeasured": false,
+      "status": "Verified"
+    },
+    {
+      "id": "context-mode-v7-review",
+      "source": "PLAYBOOK.md v7.3, Context Mode row (https://github.com/mksglu/context-mode)",
+      "date": "2026-09-29",
+      "measuredBy": "none",
+      "tier": "E4",
+      "setting": "v7 review; not re-checked for v8",
+      "effect": "Hooks six events, keeps its own snapshot at compaction, and adds a SessionStart hook to user settings each time its server starts; uninstalling leaves that hook",
+      "qualityMeasured": false,
+      "status": "Unknown"
+    },
+    {
+      "id": "context-mode-v1.0.169",
+      "source": "https://github.com/mksglu/context-mode/releases/tag/v1.0.169",
+      "date": "2026-06-29",
+      "measuredBy": "none",
+      "tier": "E4",
+      "setting": "Release page",
+      "effect": "Latest release; Elastic License 2.0",
+      "qualityMeasured": false,
+      "status": "Verified"
+    }
+  ],
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "not reviewed", "optional": "not reviewed" },
+  "requestPath": "none",
+  "runsHooks": true,
+  "alwaysLoaded": { "perSessionTokens": 0, "perSubagentTokens": 0 },
+  "userStateOutsideScope": true,
+  "agents": { "claude": { "minVersion": "2.1.281", "scopes": [] } },
+  "conflicts": [],
+  "revisit": ["a user's dominant MCP server isn't covered by native caps"],
+  "maintenance": "Third-party project; last release v1.0.169 on 2026-06-29.",
+  "freshnessDays": 180
+}

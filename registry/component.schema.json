@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "component.schema.json",
+  "title": "Efficiency Playbook registry component",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "name", "kind", "origin", "license", "roles", "exclusive", "verdict", "defaultOn", "reversible", "verdictDate", "summary", "evidence", "platforms", "egress", "requestPath", "runsHooks", "alwaysLoaded", "userStateOutsideScope", "agents", "conflicts", "revisit", "maintenance", "freshnessDays"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9.-]*$" },
+    "name": { "type": "string", "minLength": 1 },
+    "kind": { "enum": ["content", "setting", "plugin", "engine", "pack", "service"] },
+    "origin": { "enum": ["owned", "first-party", "third-party"] },
+    "license": { "type": "string", "pattern": "^(unknown|[A-Za-z0-9.+-]+( (AND|OR|WITH) [A-Za-z0-9.+-]+)*)$" },
+    "roles": { "type": "array", "items": { "type": "string", "pattern": "^[a-z0-9-]+$" } },
+    "exclusive": { "type": "boolean" },
+    "verdict": { "enum": ["Adopt", "Trial", "Assess", "Hold", "Reject"] },
+    "defaultOn": { "type": "boolean" },
+    "reversible": { "type": "boolean" },
+    "verdictDate": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+    "summary": { "type": "string", "minLength": 1, "maxLength": 400 },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "source", "date", "measuredBy", "tier", "setting", "effect", "qualityMeasured", "status"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9.-]*$" },
+          "source": { "type": "string", "minLength": 1 },
+          "date": { "type": "string", "pattern": "^\\d{4}-\\d{2}(-\\d{2})?$" },
+          "measuredBy": { "enum": ["independent", "vendor", "author", "maintainer", "user-generated", "none"] },
+          "tier": { "enum": ["E1", "E2", "E3", "E4", "E5"] },
+          "setting": { "type": "string" },
+          "effect": { "type": "string", "minLength": 1 },
+          "qualityMeasured": { "type": "boolean" },
+          "status": { "enum": ["Verified", "Inferred", "Assumption", "Unknown"] }
+        }
+      }
+    },
+    "killTest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "hypothesis", "baseline", "pass", "budget", "ifFails", "scheduled"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^K-[A-Z0-9-]+$" },
+        "hypothesis": { "type": "string", "minLength": 1 },
+        "baseline": { "type": "string", "minLength": 1 },
+        "pass": { "type": "string", "minLength": 1 },
+        "budget": { "type": "string", "minLength": 1 },
+        "ifFails": { "type": "string", "minLength": 1 },
+        "scheduled": { "type": "string" }
+      }
+    },
+    "platforms": { "type": "array", "minItems": 1, "items": { "enum": ["windows", "macos", "linux", "wsl"] } },
+    "egress": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["default", "optional"],
+      "properties": { "default": { "type": "string", "minLength": 1 }, "optional": { "type": "string", "minLength": 1 } }
+    },
+    "requestPath": { "enum": ["none", "proxy", "history-rewrite"] },
+    "runsHooks": { "type": "boolean" },
+    "alwaysLoaded": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["perSessionTokens", "perSubagentTokens"],
+      "properties": { "perSessionTokens": { "type": "integer", "minimum": 0 }, "perSubagentTokens": { "type": "integer", "minimum": 0 } }
+    },
+    "userStateOutsideScope": { "type": "boolean" },
+    "agents": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "claude": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["minVersion", "scopes"],
+          "properties": {
+            "minVersion": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+            "testedVersion": { "type": "string" },
+            "scopes": { "type": "array", "items": { "enum": ["user", "project", "local"] } },
+            "content": { "type": "array", "items": { "type": "string" } },
+            "settings": { "type": "object" },
+            "needsEnv": { "type": "boolean" },
+            "install": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["plugin", "marketplace"],
+                "properties": {
+                  "plugin": { "type": "string", "pattern": "^[a-z0-9-]+@[a-z0-9-]+$" },
+                  "marketplace": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+                  "source": { "type": "string" },
+                  "ref": { "type": "string" },
+                  "sha": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+                  "bin": { "type": "string" }
+                }
+              }
+            },
+            "detect": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "plugins": { "type": "array", "items": { "type": "string" } },
+                "rulesDirs": { "type": "array", "items": { "type": "string" } },
+                "minVersion": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "conflicts": { "type": "array", "items": { "type": "string" } },
+    "revisit": { "type": "array", "items": { "type": "string" } },
+    "maintenance": { "type": "string" },
+    "freshnessDays": { "type": "integer", "minimum": 1 }
+  }
+}

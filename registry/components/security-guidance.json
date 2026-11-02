@@ -1,0 +1,38 @@
+{
+  "id": "security-guidance",
+  "name": "security-guidance (official plugin)",
+  "kind": "plugin",
+  "origin": "first-party",
+  "license": "Apache-2.0",
+  "roles": ["security-checks"],
+  "exclusive": false,
+  "verdict": "Hold",
+  "defaultOn": false,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "Official plugin whose hooks check edits for insecure patterns. Hold on Windows, where its hooks fail or loop on many setups; the ledger says Assess on other platforms, so setup offers it nowhere. Its hooks run on every edit and are advisory by the vendor's own definition.",
+  "evidence": [
+    {
+      "id": "security-guidance-windows-issues",
+      "source": "PLAYBOOK.md v7.3, security-guidance Windows note (issues #2697, #6186, #6249, #6289 and #94525)",
+      "date": "2026-09-29",
+      "measuredBy": "user-generated",
+      "tier": "E5",
+      "setting": "Issue reports recorded in v7; not re-checked for v8",
+      "effect": "Hooks fail or loop on many Windows setups",
+      "qualityMeasured": false,
+      "status": "Unknown"
+    }
+  ],
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "not reviewed", "optional": "not reviewed" },
+  "requestPath": "none",
+  "runsHooks": true,
+  "alwaysLoaded": { "perSessionTokens": 0, "perSubagentTokens": 0 },
+  "userStateOutsideScope": false,
+  "agents": { "claude": { "minVersion": "2.1.281", "scopes": [] } },
+  "conflicts": [],
+  "revisit": ["its Windows issues are closed"],
+  "maintenance": "First-party plugin in the official marketplace.",
+  "freshnessDays": 180
+}

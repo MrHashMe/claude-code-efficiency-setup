@@ -1,0 +1,38 @@
+{
+  "id": "serena",
+  "name": "Serena",
+  "kind": "plugin",
+  "origin": "third-party",
+  "license": "unknown",
+  "roles": ["code-navigation"],
+  "exclusive": true,
+  "verdict": "Reject",
+  "defaultOn": false,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "An MCP server for symbol-level code navigation. Rejected: it does the same job as the official LSP plugins, which v8 already offers.",
+  "evidence": [
+    {
+      "id": "serena-duplicates-lsp",
+      "source": "PLAYBOOK.md v7.3, Serena row, and docs/v8/03-admission-ledger.md",
+      "date": "2026-09-29",
+      "measuredBy": "none",
+      "tier": "E4",
+      "setting": "Design review",
+      "effect": "Same job as the official LSP plugins",
+      "qualityMeasured": false,
+      "status": "Inferred"
+    }
+  ],
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "not reviewed", "optional": "not reviewed" },
+  "requestPath": "none",
+  "runsHooks": false,
+  "alwaysLoaded": { "perSessionTokens": 0, "perSubagentTokens": 0 },
+  "userStateOutsideScope": false,
+  "agents": { "claude": { "minVersion": "2.1.281", "scopes": [] } },
+  "conflicts": ["lsp", "code-graph-indexers"],
+  "revisit": ["independent paired evidence on Claude Code"],
+  "maintenance": "Third-party project; release cadence not reviewed.",
+  "freshnessDays": 90
+}

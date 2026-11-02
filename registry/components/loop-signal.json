@@ -1,0 +1,47 @@
+{
+  "id": "loop-signal",
+  "name": "Loop signal (TokenEconomizer idea TE-T3)",
+  "kind": "engine",
+  "origin": "owned",
+  "license": "MIT",
+  "roles": ["loop-detection"],
+  "exclusive": false,
+  "verdict": "Trial",
+  "defaultOn": false,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "A transcript scan that flags sessions where the agent goes in circles. Setting --max-turns is the simpler alternative. The kill test first checks that flags are precise, then whether acting on them saves anything on the bench. Costs a transcript scan; nothing per session.",
+  "evidence": [
+    {
+      "id": "tokeneconomizer-te-t3",
+      "source": "https://github.com/microsoft/TokenEconomizer (idea labeled TE-T3 in docs/v8/02-landscape.md section 3)",
+      "date": "2026-10-13",
+      "measuredBy": "none",
+      "tier": "E4",
+      "setting": "Design idea; v8's version is unbuilt and unmeasured",
+      "effect": "Agents that repeat failing steps waste turns; a signal could stop them sooner (expected, not measured)",
+      "qualityMeasured": false,
+      "status": "Assumption"
+    }
+  ],
+  "killTest": {
+    "id": "K-TE-T3",
+    "hypothesis": "A loop signal is precise enough to act on",
+    "baseline": "None",
+    "pass": "At least 1 flag per 50 turns with precision of at least 70%; then, on the bench, a gain of at least 10%",
+    "budget": "30 days, then a bench",
+    "ifFails": "Dropped",
+    "scheduled": "v8.3 or later (roadmap estimate: unplanned)"
+  },
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "none", "optional": "none" },
+  "requestPath": "none",
+  "runsHooks": false,
+  "alwaysLoaded": { "perSessionTokens": 0, "perSubagentTokens": 0 },
+  "userStateOutsideScope": false,
+  "agents": { "claude": { "minVersion": "2.1.281", "scopes": [] } },
+  "conflicts": [],
+  "revisit": ["K-TE-T3 result"],
+  "maintenance": "Owned engine feature, maintained with the engine.",
+  "freshnessDays": 180
+}

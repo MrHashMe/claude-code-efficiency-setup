@@ -1,0 +1,47 @@
+{
+  "id": "security-rule-lint",
+  "name": "Security-rule lint in verify",
+  "kind": "engine",
+  "origin": "owned",
+  "license": "MIT",
+  "roles": ["verify"],
+  "exclusive": false,
+  "verdict": "Trial",
+  "defaultOn": true,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "An advisory verify finding (EP-SECURITY-RULE-UNENFORCED) for a prose security rule that no setting, permission rule or sandbox option enforces, since such rules give false assurance. On in v8.0 as a Trial (engine); its kill test is an owner review, not a bench run. Costs verify time only.",
+  "evidence": [
+    {
+      "id": "arxiv-2608.23550",
+      "source": "https://arxiv.org/abs/2608.23550 (When \"Do Not\" Is Not Deny: Security Rules in CLAUDE.md vs Built-In Controls)",
+      "date": "2026-08-24",
+      "measuredBy": "independent",
+      "tier": "E4",
+      "setting": "The ledger calls it E1-adjacent: it measures how often prose security rules are enforced, not whether this lint helps",
+      "effect": "Only 4 to 16% of prose security rules had an enforcement control (the 16% is in the abstract)",
+      "qualityMeasured": false,
+      "status": "Verified"
+    }
+  ],
+  "killTest": {
+    "id": "K-SECLINT",
+    "hypothesis": "The lint finds real gaps",
+    "baseline": "None",
+    "pass": "On 20 configurations reviewed with their owners: at least one actionable finding per 5 configurations and at most 30% false positives",
+    "budget": "1 week",
+    "ifFails": "Check removed",
+    "scheduled": "v8.0, where the check ships on as an advisory finding: an owner review of 20 configurations, not a maintainer bench run; the ledger sets no date"
+  },
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "none", "optional": "none" },
+  "requestPath": "none",
+  "runsHooks": false,
+  "alwaysLoaded": { "perSessionTokens": 0, "perSubagentTokens": 0 },
+  "userStateOutsideScope": false,
+  "agents": { "claude": { "minVersion": "2.1.281", "scopes": [] } },
+  "conflicts": [],
+  "revisit": ["K-SECLINT result"],
+  "maintenance": "Owned engine check, maintained with the engine.",
+  "freshnessDays": 180
+}

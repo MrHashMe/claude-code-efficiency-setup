@@ -1,0 +1,22 @@
+{
+  "asOf": "2026-11-02",
+  "source": "claude-api skill bundled with Claude Code 2.1.309: shared/models.md, shared/prompt-caching.md (Economics), shared/model-migration.md",
+  "units": "input and output in USD per million tokens; cacheRead, cacheWrite5m and cacheWrite1h are multipliers of the input price",
+  "notes": "Standard API rates only. Fast mode, batch, data residency and long-context surcharges are not modeled, and subscription plan usage is not inferred. Model ids match after dropping a trailing [..] tag, a date suffix, and a Bedrock or Vertex prefix or version suffix. An id missing here is an error; an entry with status Unknown is reported as tokens without a price.",
+  "models": {
+    "claude-fable-5-1": { "status": "Verified", "input": 10, "output": 50, "cacheRead": 0.025, "cacheWrite5m": 1.25, "cacheWrite1h": 2 },
+    "claude-mythos-5-1": { "status": "Verified", "input": 10, "output": 50, "cacheRead": 0.025, "cacheWrite5m": 1.25, "cacheWrite1h": 2 },
+    "claude-fable-5": { "status": "Verified", "input": 10, "output": 50, "cacheRead": 0.1, "cacheWrite5m": 1.25, "cacheWrite1h": 2 },
+    "claude-mythos-5": { "status": "Verified", "input": 10, "output": 50, "cacheRead": 0.1, "cacheWrite5m": 1.25, "cacheWrite1h": 2 },
+    "claude-opus-5-5": { "status": "Verified", "input": 4, "output": 20, "cacheRead": 0.05, "cacheWrite5m": 1.25, "cacheWrite1h": 2 },
+    "claude-opus-5": { "status": "Verified", "input": 5, "output": 25, "cacheRead": 0.1, "cacheWrite5m": 1.25, "cacheWrite1h": 2 },
+    "claude-opus-4-8": { "status": "Verified", "input": 5, "output": 25, "cacheRead": 0.1, "cacheWrite5m": 1.25, "cacheWrite1h": 2 },
+    "claude-opus-4-7": { "status": "Unknown", "input": null, "output": null, "cacheRead": null, "cacheWrite5m": 1.25, "cacheWrite1h": 2, "note": "The skill names the model but not its price." },
+    "claude-opus-4-6": { "status": "Unknown", "input": null, "output": null, "cacheRead": null, "cacheWrite5m": 1.25, "cacheWrite1h": 2, "note": "The skill names the model but not its price." },
+    "claude-sonnet-5-5": { "status": "Unknown", "input": 2, "output": 10, "cacheRead": null, "cacheWrite5m": 1.25, "cacheWrite1h": 2, "note": "Cache reads conflict: the skill lists $0.20 per million (0.1x); 09-evaluation-plan.md, read 2026-11-01, says 0.05x. Confirm on the pricing page, then set cacheRead and status." },
+    "claude-sonnet-5": { "status": "Verified", "input": 2, "output": 10, "cacheRead": 0.1, "cacheWrite5m": 1.25, "cacheWrite1h": 2 },
+    "claude-sonnet-4-6": { "status": "Verified", "input": 3, "output": 15, "cacheRead": 0.1, "cacheWrite5m": 1.25, "cacheWrite1h": 2 },
+    "claude-haiku-5-5": { "status": "Unknown", "input": null, "output": null, "cacheRead": null, "cacheWrite5m": null, "cacheWrite1h": null, "note": "Two rate cards by prompt length ($0.10/$0.50 up to 100K prompt tokens, $0.50/$2.50 above); cache prices per card aren't listed." },
+    "claude-haiku-4-5": { "status": "Verified", "input": 1, "output": 5, "cacheRead": 0.1, "cacheWrite5m": 1.25, "cacheWrite1h": 2 }
+  }
+}

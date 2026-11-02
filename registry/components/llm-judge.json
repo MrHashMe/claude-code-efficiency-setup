@@ -1,0 +1,38 @@
+{
+  "id": "llm-judge",
+  "name": "TokenEconomizer LLM judge and micro-skill proposer",
+  "kind": "plugin",
+  "origin": "third-party",
+  "license": "Apache-2.0",
+  "roles": ["rule-generation"],
+  "exclusive": false,
+  "verdict": "Reject",
+  "defaultOn": false,
+  "reversible": false,
+  "verdictDate": "2026-11-01",
+  "summary": "TokenEconomizer's model-based quality judge and its proposer of model-written micro-skills. Rejected: neither is validated, and generated text in always-loaded files is a persistence path for injected instructions. Tests and human review do the job. Both make model calls.",
+  "evidence": [
+    {
+      "id": "tokeneconomizer-judge-review",
+      "source": "https://github.com/microsoft/TokenEconomizer (reviewed in docs/v8/03-admission-ledger.md)",
+      "date": "2026-10-13",
+      "measuredBy": "none",
+      "tier": "E4",
+      "setting": "Design review; no validation of either feature found",
+      "effect": "Unvalidated; generated text in always-loaded files is a persistence path for injected instructions",
+      "qualityMeasured": false,
+      "status": "Inferred"
+    }
+  ],
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "helper model calls to the agent's own provider", "optional": "not reviewed" },
+  "requestPath": "none",
+  "runsHooks": true,
+  "alwaysLoaded": { "perSessionTokens": 0, "perSubagentTokens": 0 },
+  "userStateOutsideScope": false,
+  "agents": { "claude": { "minVersion": "2.1.281", "scopes": [] } },
+  "conflicts": [],
+  "revisit": [],
+  "maintenance": "Part of the TokenEconomizer plugin; micro-skills are off by default.",
+  "freshnessDays": 90
+}

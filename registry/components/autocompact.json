@@ -1,0 +1,54 @@
+{
+  "id": "autocompact",
+  "name": "Auto-compact window cap",
+  "kind": "setting",
+  "origin": "first-party",
+  "license": "LicenseRef-Anthropic-Commercial-Terms",
+  "roles": ["compaction-window"],
+  "exclusive": true,
+  "verdict": "Trial",
+  "defaultOn": false,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "Caps the context size at which Claude Code compacts automatically (autoCompactWindow: 300000), so long sessions don't pay for very large contexts on every turn. Risk: more compactions.",
+  "evidence": [
+    {
+      "id": "ctxagent-arxiv-2610-34425",
+      "source": "https://arxiv.org/abs/2610.34425",
+      "date": "2026-10-25",
+      "measuredBy": "independent",
+      "tier": "E4",
+      "setting": "self-controlled context management in a research agent, not this setting",
+      "effect": "mechanism: earlier context control lowers per-turn cost (inference for Claude Code)",
+      "qualityMeasured": false,
+      "status": "Inferred"
+    }
+  ],
+  "killTest": {
+    "id": "K-AUTOCOMPACT",
+    "hypothesis": "A lower auto-compact window lowers cost on long tasks",
+    "baseline": "Default window",
+    "pass": "One arm (200k or 300k) has a cost-ratio interval below 0.95 and is non-inferior",
+    "budget": "10 tasks that exceed 200k tokens x 3 arms x 2 runs",
+    "ifFails": "Leave the default",
+    "scheduled": "maintainer reference bench after v8.0"
+  },
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "none", "optional": "none" },
+  "requestPath": "none",
+  "runsHooks": false,
+  "alwaysLoaded": { "perSessionTokens": 0, "perSubagentTokens": 0 },
+  "userStateOutsideScope": false,
+  "agents": {
+    "claude": {
+      "minVersion": "2.1.281",
+      "testedVersion": "2.1.303",
+      "scopes": ["user", "local"],
+      "settings": { "/autoCompactWindow": 300000 }
+    }
+  },
+  "conflicts": [],
+  "revisit": ["K-AUTOCOMPACT result", "a change to the default window"],
+  "maintenance": "Built into Claude Code.",
+  "freshnessDays": 90
+}

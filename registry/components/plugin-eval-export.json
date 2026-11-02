@@ -1,0 +1,49 @@
+{
+  "id": "plugin-eval-export",
+  "name": "Bench tasks exported as claude plugin eval cases",
+  "kind": "engine",
+  "origin": "owned",
+  "license": "MIT",
+  "roles": ["bench-export"],
+  "exclusive": false,
+  "verdict": "Assess",
+  "defaultOn": false,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "Exporting personal bench tasks as claude plugin eval cases, to run them in the native runner. Assess: the runner loads only the plugin, runs each case 3 times and reports means and deltas without intervals (inferred), and shell suites probably need WSL2 on Windows (inferred from the sandbox docs). Bench v2 already runs these tasks.",
+  "evidence": [
+    {
+      "id": "cc-docs-plugin-evals",
+      "source": "https://code.claude.com/docs/en/plugin-evals (Test plugins with evals)",
+      "date": "2026-11-01",
+      "measuredBy": "none",
+      "tier": "E4",
+      "setting": "Documentation; needs Claude Code 2.1.269 or later",
+      "effect": "Runs each case 3 times by default, loads only the plugin under test, reports means and deltas, and runs Bash under the OS sandbox",
+      "qualityMeasured": false,
+      "status": "Verified"
+    },
+    {
+      "id": "cc-docs-sandboxing",
+      "source": "https://code.claude.com/docs/en/sandboxing (Configure the sandboxed Bash tool)",
+      "date": "2026-11-01",
+      "measuredBy": "none",
+      "tier": "E4",
+      "setting": "Documentation",
+      "effect": "The sandbox runs on macOS, Linux and WSL2; on native Windows, commands run unsandboxed",
+      "qualityMeasured": false,
+      "status": "Verified"
+    }
+  ],
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "none", "optional": "none" },
+  "requestPath": "none",
+  "runsHooks": false,
+  "alwaysLoaded": { "perSessionTokens": 0, "perSubagentTokens": 0 },
+  "userStateOutsideScope": false,
+  "agents": { "claude": { "minVersion": "2.1.281", "scopes": [] } },
+  "conflicts": [],
+  "revisit": ["a user asks for it", "the runner gains intervals and native Windows support"],
+  "maintenance": "Not built; would be maintained with the engine.",
+  "freshnessDays": 180
+}

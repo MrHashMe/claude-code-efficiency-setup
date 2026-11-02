@@ -1,0 +1,49 @@
+{
+  "id": "native-defaults",
+  "name": "Leave native defaults alone",
+  "kind": "engine",
+  "origin": "owned",
+  "license": "MIT",
+  "roles": ["native-defaults"],
+  "exclusive": false,
+  "verdict": "Adopt",
+  "defaultOn": true,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "Setup leaves the agent's own defaults alone: effort, auto memory, MCP tool search, idle compaction, cache TTLs and permission mode, because overriding them costs cache hits or quality. Lower effort is a reference arm in every bench, never a silent default change.",
+  "evidence": [
+    {
+      "id": "arxiv-2610.22732-effort",
+      "source": "https://arxiv.org/abs/2610.22732 (TokenEconomizer: Experience-Driven Black-Box Cost Control for Coding Agents)",
+      "date": "2026-10-15",
+      "measuredBy": "vendor",
+      "tier": "E2",
+      "setting": "Vendor-run; medium effort as a reference arm, Claude Code 2.1.170; the effort figures come from the paper's tables and weren't re-read",
+      "effect": "Medium effort alone cut cost 16.8 to 28.9% at a 1.8 to 4.7-point pass-rate loss",
+      "qualityMeasured": true,
+      "status": "Unknown"
+    },
+    {
+      "id": "cc-docs-prompt-caching",
+      "source": "https://code.claude.com/docs/en/prompt-caching (How Claude Code uses prompt caching)",
+      "date": "2026-11-01",
+      "measuredBy": "none",
+      "tier": "E4",
+      "setting": "Documentation; supports leaving cache TTLs alone",
+      "effect": "A one-hour cache for the main conversation and five minutes for everything else",
+      "qualityMeasured": false,
+      "status": "Verified"
+    }
+  ],
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "none", "optional": "none" },
+  "requestPath": "none",
+  "runsHooks": false,
+  "alwaysLoaded": { "perSessionTokens": 0, "perSubagentTokens": 0 },
+  "userStateOutsideScope": false,
+  "agents": { "claude": { "minVersion": "2.1.281", "scopes": [] } },
+  "conflicts": [],
+  "revisit": ["a user's own bench shows lower effort non-inferior at lower cost: offer it as a personal setting"],
+  "maintenance": "Owned engine behavior; re-check the list of defaults on new agent versions.",
+  "freshnessDays": 180
+}

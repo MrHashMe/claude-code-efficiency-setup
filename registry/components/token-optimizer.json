@@ -1,0 +1,49 @@
+{
+  "id": "token-optimizer",
+  "name": "token-optimizer (alexgreensh)",
+  "kind": "plugin",
+  "origin": "third-party",
+  "license": "PolyForm-Noncommercial-1.0.0",
+  "roles": ["tool-output"],
+  "exclusive": true,
+  "verdict": "Reject",
+  "defaultOn": false,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "Intercepts file reads to cut tokens. Rejected: its license is PolyForm Noncommercial, and the only numbers are the vendor's own counters, with no quality study.",
+  "evidence": [
+    {
+      "id": "token-optimizer-license",
+      "source": "https://github.com/alexgreensh/token-optimizer",
+      "date": "2026-11-01",
+      "measuredBy": "none",
+      "tier": "E4",
+      "setting": "Repository and license",
+      "effect": "PolyForm Noncommercial license",
+      "qualityMeasured": false,
+      "status": "Verified"
+    },
+    {
+      "id": "token-optimizer-counters",
+      "source": "https://github.com/alexgreensh/token-optimizer (as summarized in docs/v8/03-admission-ledger.md)",
+      "date": "2026-11-01",
+      "measuredBy": "vendor",
+      "tier": "E5",
+      "setting": "The vendor's own token counters; no quality study",
+      "effect": "Savings reported only by its own counters",
+      "qualityMeasured": false,
+      "status": "Unknown"
+    }
+  ],
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "not reviewed", "optional": "not reviewed" },
+  "requestPath": "none",
+  "runsHooks": true,
+  "alwaysLoaded": { "perSessionTokens": 0, "perSubagentTokens": 0 },
+  "userStateOutsideScope": false,
+  "agents": { "claude": { "minVersion": "2.1.281", "scopes": [] } },
+  "conflicts": [],
+  "revisit": [],
+  "maintenance": "Third-party project; release cadence not reviewed.",
+  "freshnessDays": 90
+}
