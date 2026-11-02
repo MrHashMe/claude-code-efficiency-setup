@@ -1,0 +1,49 @@
+{
+  "id": "permission-allowlists",
+  "name": "Permission allowlists to cut prompts",
+  "kind": "setting",
+  "origin": "first-party",
+  "license": "LicenseRef-Anthropic-Commercial-Terms",
+  "roles": ["permissions"],
+  "exclusive": false,
+  "verdict": "Reject",
+  "defaultOn": false,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "Allow rules that cut permission prompts. Rejected: auto mode is already the starting mode for interactive terminal and VS Code sessions, and allow rules widen the attack surface. v8 writes no permission rules by default; bench fingerprints record the permission mode.",
+  "evidence": [
+    {
+      "id": "cc-docs-security-auto-mode",
+      "source": "https://code.claude.com/docs/en/security (Security)",
+      "date": "2026-11-01",
+      "measuredBy": "none",
+      "tier": "E4",
+      "setting": "Documentation",
+      "effect": "Auto mode is the starting mode for interactive terminal and VS Code sessions",
+      "qualityMeasured": false,
+      "status": "Verified"
+    },
+    {
+      "id": "cc-2.1.283-auto-mode",
+      "source": "https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md (Claude Code 2.1.283)",
+      "date": "2026-09-25",
+      "measuredBy": "none",
+      "tier": "E4",
+      "setting": "Changelog",
+      "effect": "Interactive sessions on third-party providers or with telemetry off start in auto mode when no mode is set",
+      "qualityMeasured": false,
+      "status": "Verified"
+    }
+  ],
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "none", "optional": "none" },
+  "requestPath": "none",
+  "runsHooks": false,
+  "alwaysLoaded": { "perSessionTokens": 0, "perSubagentTokens": 0 },
+  "userStateOutsideScope": false,
+  "agents": { "claude": { "minVersion": "2.1.281", "scopes": [] } },
+  "conflicts": [],
+  "revisit": ["auto mode stops being the default"],
+  "maintenance": "Native Claude Code setting; watch the permission-mode docs.",
+  "freshnessDays": 180
+}

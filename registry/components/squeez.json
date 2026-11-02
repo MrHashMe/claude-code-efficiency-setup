@@ -1,0 +1,49 @@
+{
+  "id": "squeez",
+  "name": "squeez",
+  "kind": "plugin",
+  "origin": "third-party",
+  "license": "unknown",
+  "roles": ["tool-output", "session-memory"],
+  "exclusive": true,
+  "verdict": "Reject",
+  "defaultOn": false,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "Wraps shell commands and keeps a session memory. Rejected: no significant effect in a sponsor-run leaderboard (THOL, cost ratio 1.010), and it prepends a persona block to the user's global instructions file (not re-read for v8).",
+  "evidence": [
+    {
+      "id": "thol-squeez",
+      "source": "https://pi-infected.github.io/token-harness-optimizer-leaderboard/ (Token harness optimizer leaderboard)",
+      "date": "2026-07-18",
+      "measuredBy": "vendor",
+      "tier": "E5",
+      "setting": "Sponsor-run leaderboard (THOL); quality results not recorded in the v8 docs, so no higher than E5",
+      "effect": "Cost ratio 1.010, not significant",
+      "qualityMeasured": false,
+      "status": "Verified"
+    },
+    {
+      "id": "squeez-repo",
+      "source": "https://github.com/claudioemmanuel/squeez",
+      "date": "2026-11-01",
+      "measuredBy": "none",
+      "tier": "E4",
+      "setting": "Repository; the persona-block detail wasn't re-read",
+      "effect": "Prepends a persona block to the global instructions file",
+      "qualityMeasured": false,
+      "status": "Unknown"
+    }
+  ],
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "not reviewed", "optional": "not reviewed" },
+  "requestPath": "none",
+  "runsHooks": true,
+  "alwaysLoaded": { "perSessionTokens": 0, "perSubagentTokens": 0 },
+  "userStateOutsideScope": true,
+  "agents": { "claude": { "minVersion": "2.1.281", "scopes": [] } },
+  "conflicts": [],
+  "revisit": [],
+  "maintenance": "Third-party project; release cadence not reviewed.",
+  "freshnessDays": 90
+}

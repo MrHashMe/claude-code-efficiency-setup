@@ -1,8 +1,10 @@
 # Claude Code Desktop (Windows): Complete Quality + Efficiency Playbook (v7.3)
 
+> **Superseded for Claude Code by plugin v8.0.** Since v8.0, `/efficiency-playbook:setup` runs the engine in this repository (`engine/ep.mjs`) and no longer executes this file, and its rollback is `/efficiency-playbook:setup uninstall`. This v7.3 playbook is kept as a manual, Windows-only guide and is no longer updated. Current verdicts and evidence are in `docs/decisions.md`. A v7 install is migrated by the first v8 user-scope plan.
+
 Prepared 2026-09-29 for Claude Code v2.1.284 or later. Supersedes v7.2, v7.1, v7 and v6. Part 2 records every component we evaluated, with verdicts and evidence, including the Jev, Hindsight, JevRouter, Karpathy-method and Claude Projects reviews added in v7, and the review of setup infographics, Graphify and an AI-native builder stack added in v7.1.
 
-**How to use this file.** Attach it in a new Code-tab session and say "Execute Part 1 of the attached playbook." If you installed the efficiency-playbook plugin, type `/efficiency-playbook:setup` in a session instead; `/efficiency-playbook:setup rollback` removes what its manifest records. Without the plugin, you can also save this file and say "Read <full path> up to '## Part 2' and execute Part 1." Part 1 is the setup Claude Code carries out; if an earlier version is installed, Part 1 upgrades it in place. Part 2 is the decision record: every plugin, skill, hook, MCP server, app, CLI tool, service and native feature we evaluated, with its verdict, evidence, and how it activates. Part 3 is daily habits for me. Part 4 maps this setup onto Claude Projects cloud threads, in case I use them. When executing, act only on Part 1. Treat Parts 2 to 4 as background, and don't install anything Part 1 doesn't list.
+**How to use this file.** Attach it in a new Code-tab session and say "Execute Part 1 of the attached playbook." The efficiency-playbook plugin doesn't use this file since v8.0 (see the note at the top). Without the plugin, you can also save this file and say "Read <full path> up to '## Part 2' and execute Part 1." Part 1 is the setup Claude Code carries out; if an earlier version is installed, Part 1 upgrades it in place. Part 2 is the decision record: every plugin, skill, hook, MCP server, app, CLI tool, service and native feature we evaluated, with its verdict, evidence, and how it activates. Part 3 is daily habits for me. Part 4 maps this setup onto Claude Projects cloud threads, in case I use them. When executing, act only on Part 1. Treat Parts 2 to 4 as background, and don't install anything Part 1 doesn't list.
 
 ## Changes since v6 (background)
 
@@ -18,7 +20,7 @@ Prepared 2026-09-29 for Claude Code v2.1.284 or later. Supersedes v7.2, v7.1, v7
 | Context7: hosted server, anonymous quota, optional key, data handling | The plugin moved to Upstash's hosted server in August 2026 | Plugin PR #4985; Context7 privacy page (A) |
 | Account skills and plugins that Desktop loads are inspected and flagged for overlap | `consolidate-memory` and `skill-creator` duplicate roles here | Desktop and settings docs; changelog v2.1.283 (A) |
 | Evidence refreshed: Ponytail v4.10.0, Caveman and the built-in Concise style, benjamin-plus, jevgrep, Hindsight, Graphify, Supabase, Projects docs | Newer releases, tests and docs since v7.2 | Per row in Part 2 |
-| Published as the `efficiency-playbook` Claude Code plugin: `/efficiency-playbook:setup` runs Part 1 and `/efficiency-playbook:setup rollback` removes what its manifest records | Install and update from GitHub instead of attaching this file | Plugin, marketplace and skills docs (A) |
+| Published as the `efficiency-playbook` Claude Code plugin: `/efficiency-playbook:setup` runs Part 1 and `/efficiency-playbook:setup rollback` removes what its manifest records (v7.3 and v7.4 only; v8.0 replaced both) | Install and update from GitHub instead of attaching this file | Plugin, marketplace and skills docs (A) |
 
 ### v7.2
 

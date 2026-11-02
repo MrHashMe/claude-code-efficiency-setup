@@ -1,0 +1,38 @@
+{
+  "id": "lean-ctx",
+  "name": "lean-ctx",
+  "kind": "plugin",
+  "origin": "third-party",
+  "license": "unknown",
+  "roles": ["context-compression"],
+  "exclusive": true,
+  "verdict": "Reject",
+  "defaultOn": false,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "A context compressor that works through hooks, with an optional proxy. Rejected on negative evidence: cost +23.4% in a sponsor-run leaderboard (THOL).",
+  "evidence": [
+    {
+      "id": "thol-lean-ctx",
+      "source": "https://pi-infected.github.io/token-harness-optimizer-leaderboard/ (Token harness optimizer leaderboard)",
+      "date": "2026-07-18",
+      "measuredBy": "vendor",
+      "tier": "E5",
+      "setting": "Sponsor-run leaderboard (THOL); quality results not recorded in the v8 docs, so no higher than E5",
+      "effect": "Cost +23.4%",
+      "qualityMeasured": false,
+      "status": "Verified"
+    }
+  ],
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "not reviewed", "optional": "the optional proxy would sit in the request path" },
+  "requestPath": "none",
+  "runsHooks": true,
+  "alwaysLoaded": { "perSessionTokens": 0, "perSubagentTokens": 0 },
+  "userStateOutsideScope": false,
+  "agents": { "claude": { "minVersion": "2.1.281", "scopes": [] } },
+  "conflicts": [],
+  "revisit": [],
+  "maintenance": "Third-party project (https://github.com/yvgude/lean-ctx); release cadence not reviewed.",
+  "freshnessDays": 90
+}

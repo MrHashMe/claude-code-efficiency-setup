@@ -1,0 +1,47 @@
+{
+  "id": "plugin-eval-ci",
+  "name": "claude plugin eval in CI for v8's skills",
+  "kind": "engine",
+  "origin": "owned",
+  "license": "MIT",
+  "roles": ["skill-ci"],
+  "exclusive": false,
+  "verdict": "Trial",
+  "defaultOn": false,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "An advisory CI job that runs claude plugin eval on v8's own skills, to catch regressions the fixture tests miss. The native runner loads only the plugin, runs each case 3 times and reports means and deltas, with no intervals (inferred from the docs). Costs CI tokens; fixture tests are the simpler alternative.",
+  "evidence": [
+    {
+      "id": "cc-docs-plugin-evals",
+      "source": "https://code.claude.com/docs/en/plugin-evals (Test plugins with evals)",
+      "date": "2026-11-01",
+      "measuredBy": "none",
+      "tier": "E4",
+      "setting": "Documentation; needs Claude Code 2.1.269 or later",
+      "effect": "Runs each case 3 times by default, loads only the plugin under test, reports means and deltas, and runs Bash under the OS sandbox",
+      "qualityMeasured": false,
+      "status": "Verified"
+    }
+  ],
+  "killTest": {
+    "id": "K-EVALCI",
+    "hypothesis": "Native plugin evals catch regressions fixtures miss",
+    "baseline": "Fixture tests",
+    "pass": "At least one such regression in 3 months",
+    "budget": "3 months",
+    "ifFails": "CI job removed",
+    "scheduled": "3 months from when the advisory CI job is added; no start date set"
+  },
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "none", "optional": "none" },
+  "requestPath": "none",
+  "runsHooks": false,
+  "alwaysLoaded": { "perSessionTokens": 0, "perSubagentTokens": 0 },
+  "userStateOutsideScope": false,
+  "agents": { "claude": { "minVersion": "2.1.281", "scopes": [] } },
+  "conflicts": [],
+  "revisit": ["K-EVALCI result"],
+  "maintenance": "Owned CI job, maintained with the engine.",
+  "freshnessDays": 180
+}

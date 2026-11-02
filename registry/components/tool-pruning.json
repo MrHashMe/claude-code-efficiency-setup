@@ -1,0 +1,47 @@
+{
+  "id": "tool-pruning",
+  "name": "Tool and MCP pruning, propose-only (TokenEconomizer idea TE-T1)",
+  "kind": "engine",
+  "origin": "owned",
+  "license": "MIT",
+  "roles": ["tool-pruning"],
+  "exclusive": false,
+  "verdict": "Trial",
+  "defaultOn": false,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "An analysis that proposes removing tool and MCP definitions that sessions never use. Propose-only; a deny list it led to would be personal, at user or local scope with consent per rule (ADR-0010). Native MCP tool search covers most of this job, and the kill test checks the rest. Analysis only; no session cost.",
+  "evidence": [
+    {
+      "id": "tokeneconomizer-te-t1",
+      "source": "https://github.com/microsoft/TokenEconomizer (idea labeled TE-T1 in docs/v8/02-landscape.md section 3)",
+      "date": "2026-10-13",
+      "measuredBy": "none",
+      "tier": "E4",
+      "setting": "Design idea; v8's version is unbuilt and unmeasured",
+      "effect": "Unused tool definitions go out with every request; pruning them could save input tokens (expected, not measured)",
+      "qualityMeasured": false,
+      "status": "Assumption"
+    }
+  ],
+  "killTest": {
+    "id": "K-TE-T1",
+    "hypothesis": "Pruning unused tool definitions saves tokens",
+    "baseline": "Current tools",
+    "pass": "Prunable definitions are at least 2% of median input and the gain is at least 5% over at least 10 tasks x 2 runs, with no restore needed within 2 weeks",
+    "budget": "4 weeks",
+    "ifFails": "Dropped",
+    "scheduled": "v8.3 or later (roadmap estimate: unplanned)"
+  },
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "none", "optional": "none" },
+  "requestPath": "none",
+  "runsHooks": false,
+  "alwaysLoaded": { "perSessionTokens": 0, "perSubagentTokens": 0 },
+  "userStateOutsideScope": false,
+  "agents": { "claude": { "minVersion": "2.1.281", "scopes": [] } },
+  "conflicts": [],
+  "revisit": ["K-TE-T1 result"],
+  "maintenance": "Owned engine feature, maintained with the engine.",
+  "freshnessDays": 180
+}

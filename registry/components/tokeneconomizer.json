@@ -1,0 +1,60 @@
+{
+  "id": "tokeneconomizer",
+  "name": "TokenEconomizer (as a bundle)",
+  "kind": "plugin",
+  "origin": "third-party",
+  "license": "Apache-2.0",
+  "roles": ["cost-control"],
+  "exclusive": true,
+  "verdict": "Reject",
+  "defaultOn": false,
+  "reversible": false,
+  "verdictDate": "2026-11-01",
+  "summary": "A hooks-only cost optimizer from Microsoft Research and partners, installed whole. Rejected as a bundle: its 18.4 to 30.9% saving is vendor-run, with no intervals, on a configuration other than the shipped default, and lower effort alone came close. Its default writes tool deny rules without per-change approval. v8 takes its ideas one at a time instead.",
+  "evidence": [
+    {
+      "id": "arxiv-2610.22732",
+      "source": "https://arxiv.org/abs/2610.22732 (TokenEconomizer: Experience-Driven Black-Box Cost Control for Coding Agents)",
+      "date": "2026-10-15",
+      "measuredBy": "vendor",
+      "tier": "E2",
+      "setting": "277 SWE-bench tasks, 3 seeds, 5 agent and model combinations, Claude Code 2.1.170; micro-skills on and a different loop guard, so not the shipped default; no intervals",
+      "effect": "Cost -18.4 to -30.9% (abstract)",
+      "qualityMeasured": true,
+      "status": "Verified"
+    },
+    {
+      "id": "arxiv-2610.22732-effort",
+      "source": "https://arxiv.org/abs/2610.22732 (tables, per the research notes)",
+      "date": "2026-10-15",
+      "measuredBy": "vendor",
+      "tier": "E2",
+      "setting": "Medium effort alone as a reference arm; not re-read",
+      "effect": "Cost -16.8 to -28.9% at a 1.8 to 4.7-point pass-rate loss",
+      "qualityMeasured": true,
+      "status": "Unknown"
+    },
+    {
+      "id": "tokeneconomizer-repo",
+      "source": "https://github.com/microsoft/TokenEconomizer",
+      "date": "2026-10-13",
+      "measuredBy": "none",
+      "tier": "E4",
+      "setting": "Repository and docs",
+      "effect": "Tool pruning and the loop guard are on by default; pruning writes a deny list after 60 idle minutes; toolprune=propose only proposes",
+      "qualityMeasured": false,
+      "status": "Verified"
+    }
+  ],
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "no telemetry (docs/v8/02-landscape.md); the loop guard's helper model calls go to the agent's own provider", "optional": "not reviewed" },
+  "requestPath": "none",
+  "runsHooks": true,
+  "alwaysLoaded": { "perSessionTokens": 0, "perSubagentTokens": 0 },
+  "userStateOutsideScope": true,
+  "agents": { "claude": { "minVersion": "2.1.281", "scopes": [] } },
+  "conflicts": ["tool-pruning", "loop-signal"],
+  "revisit": ["independent replication with intervals on its shipped default"],
+  "maintenance": "Research plugin; v0.1.0 on 2026-10-26, with at least 44 commits since and no version bump.",
+  "freshnessDays": 90
+}

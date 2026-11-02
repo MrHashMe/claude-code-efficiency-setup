@@ -14,36 +14,40 @@ permissions:
 jobs:
   check:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 22
       - run: node scripts/check.mjs
 
-  selftest:
+  test:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-latest, ubuntu-latest]
+        os: [windows-latest, ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 22
-      - run: node skills/setup/run.mjs selftest
+      - run: node engine/ep.mjs selftest
+      - run: node --test "test/*.test.mjs"
 
   # Informational: the CLI may need sign-in for some commands, so this job can't block a release.
   validate:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     continue-on-error: true
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 22
-      - run: npm install -g @anthropic-ai/claude-code
+      - run: npm install -g @anthropic-ai/claude-code@2.1.303
       - name: Validate the marketplace
         run: claude plugin validate --strict .
       - name: Validate the plugin on its own (a copy without marketplace.json)
@@ -57,13 +61,14 @@ jobs:
   # then checks that the setup skill stays out of the model's prompt.
   codex:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     continue-on-error: true
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 22
-      - run: npm install -g @openai/codex
+      - run: npm install -g @openai/codex@0.166.0
       - name: Install from this checkout and inspect the prompt
         run: |
           export CODEX_HOME="$RUNNER_TEMP/codex" HOME="$RUNNER_TEMP/home"
@@ -77,12 +82,13 @@ jobs:
 
   release:
     if: startsWith(github.ref, 'refs/tags/v')
-    needs: [check, selftest]
+    needs: [check, test]
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - run: gh release create "$GITHUB_REF_NAME" PLAYBOOK.md PLAYBOOK-CODEX.md --title "$GITHUB_REF_NAME" --generate-notes --verify-tag
         env:
           GH_TOKEN: ${{ github.token }}

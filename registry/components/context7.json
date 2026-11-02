@@ -1,0 +1,55 @@
+{
+  "id": "context7",
+  "name": "Context7 docs lookup",
+  "kind": "plugin",
+  "origin": "third-party",
+  "license": "MIT",
+  "roles": ["docs-lookup"],
+  "exclusive": false,
+  "verdict": "Trial",
+  "defaultOn": false,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "Current library documentation from Upstash's hosted Context7 service, through the plugin in the official marketplace, plus a rule to send only library names and generic questions. The one allowed egress exception.",
+  "evidence": [
+    {
+      "id": "context7-v7-use-if-accepted",
+      "source": "PLAYBOOK.md v7 (use if accepted)",
+      "date": "2026-10",
+      "measuredBy": "none",
+      "tier": "E4",
+      "setting": "mechanism only",
+      "effect": "fewer answers from stale API knowledge (expected, not measured)",
+      "qualityMeasured": false,
+      "status": "Assumption"
+    }
+  ],
+  "killTest": {
+    "id": "K-CONTEXT7",
+    "hypothesis": "Docs lookup helps on libraries changed after the model's training cutoff",
+    "baseline": "Built-in web search",
+    "pass": "Pass-rate interval above 0 at a cost ratio no higher than 1.1",
+    "budget": "10 such tasks x 2 arms x 2 runs",
+    "ifFails": "Stays opt-in, with the measured result shown",
+    "scheduled": "maintainer reference bench after v8.0"
+  },
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "library names and generic questions to mcp.context7.com (Upstash)", "optional": "an API key, if the user sets CONTEXT7_API_KEY" },
+  "requestPath": "none",
+  "runsHooks": false,
+  "alwaysLoaded": { "perSessionTokens": 60, "perSubagentTokens": 60 },
+  "userStateOutsideScope": false,
+  "agents": {
+    "claude": {
+      "minVersion": "2.1.281",
+      "testedVersion": "2.1.303",
+      "scopes": ["user"],
+      "content": ["content/rules/50-context7.md"],
+      "install": [{ "plugin": "context7@claude-plugins-official", "marketplace": "claude-plugins-official" }]
+    }
+  },
+  "conflicts": [],
+  "revisit": ["K-CONTEXT7 result", "the agent ships version-aware docs lookup"],
+  "maintenance": "Hosted service run by Upstash; plugin listed in the official marketplace.",
+  "freshnessDays": 90
+}

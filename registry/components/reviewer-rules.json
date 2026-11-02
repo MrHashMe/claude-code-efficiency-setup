@@ -1,0 +1,38 @@
+{
+  "id": "reviewer-rules",
+  "name": "Mandatory reviewer-agent rules",
+  "kind": "content",
+  "origin": "owned",
+  "license": "MIT",
+  "roles": ["review"],
+  "exclusive": false,
+  "verdict": "Assess",
+  "defaultOn": false,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "Rules such as \"always run a reviewer after edits\". Not offered by setup; offered as a bench arm. A review stage took 59.4% of tokens in one multi-agent system and no paired gain was found. Targeted checks are the simpler alternative.",
+  "evidence": [
+    {
+      "id": "arxiv-2601.14470",
+      "source": "https://arxiv.org/abs/2601.14470 (Tokenomics: Quantifying Where Tokens Are Used in Agentic Software Engineering)",
+      "date": "2026-01-20",
+      "measuredBy": "independent",
+      "tier": "E4",
+      "setting": "ChatDev, a multi-agent system; measures where tokens go, not the effect of a reviewer rule",
+      "effect": "A review stage took 59.4% of tokens",
+      "qualityMeasured": false,
+      "status": "Verified"
+    }
+  ],
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "none", "optional": "none" },
+  "requestPath": "none",
+  "runsHooks": false,
+  "alwaysLoaded": { "perSessionTokens": 0, "perSubagentTokens": 0 },
+  "userStateOutsideScope": false,
+  "agents": { "claude": { "minVersion": "2.1.281", "scopes": [] } },
+  "conflicts": [],
+  "revisit": [],
+  "maintenance": "Owned text, written only if a bench arm needs it.",
+  "freshnessDays": 180
+}

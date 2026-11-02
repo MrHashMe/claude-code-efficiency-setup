@@ -1,0 +1,38 @@
+{
+  "id": "sequential-stopping",
+  "name": "Anytime-valid sequential stopping",
+  "kind": "engine",
+  "origin": "owned",
+  "license": "MIT",
+  "roles": ["bench"],
+  "exclusive": false,
+  "verdict": "Assess",
+  "defaultOn": false,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "Sequential tests that would let a bench run stop early, once its result is clear, to save spend. Assess: low value at the sample sizes v8's bench uses, for added complexity. A fixed-size plan, with the maximum spend shown before the run, is the simpler alternative.",
+  "evidence": [
+    {
+      "id": "sequential-stopping-judgment",
+      "source": "docs/v8/03-admission-ledger.md (design judgment)",
+      "date": "2026-11-01",
+      "measuredBy": "none",
+      "tier": "E4",
+      "setting": "Design judgment; no measurement",
+      "effect": "Low value at these sample sizes",
+      "qualityMeasured": false,
+      "status": "Assumption"
+    }
+  ],
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "none", "optional": "none" },
+  "requestPath": "none",
+  "runsHooks": false,
+  "alwaysLoaded": { "perSessionTokens": 0, "perSubagentTokens": 0 },
+  "userStateOutsideScope": false,
+  "agents": { "claude": { "minVersion": "2.1.281", "scopes": [] } },
+  "conflicts": [],
+  "revisit": [],
+  "maintenance": "Not built.",
+  "freshnessDays": 180
+}

@@ -1,0 +1,49 @@
+{
+  "id": "same-job-check",
+  "name": "Same-job overlap check in verify",
+  "kind": "engine",
+  "origin": "owned",
+  "license": "MIT",
+  "roles": ["verify"],
+  "exclusive": false,
+  "verdict": "Adopt",
+  "defaultOn": true,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "A verify check (EP-ROLE-CONFLICT) that reports installed skills, plugins or rule sets competing for one job, third-party ones included, and one component installed through two channels. It reports and never removes anything. Costs verify time only.",
+  "evidence": [
+    {
+      "id": "arxiv-2610.11647",
+      "source": "https://arxiv.org/abs/2610.11647 (One Skill Too Many: How Co-Installed Skills Conflict in Coding Agents)",
+      "date": "2026-10-08",
+      "measuredBy": "independent",
+      "tier": "E1",
+      "setting": "Co-installed skills competing for one job; measures the problem this check reports, not the check",
+      "effect": "One skill took over in 1 of 5 runs",
+      "qualityMeasured": true,
+      "status": "Verified"
+    },
+    {
+      "id": "arxiv-2610.25064",
+      "source": "https://arxiv.org/abs/2610.25064 (One Skill Takes Over: Clashing Agent Skills and a One-File Fix)",
+      "date": "2026-10-18",
+      "measuredBy": "independent",
+      "tier": "E1",
+      "setting": "Competing skill instructions; measures the problem this check reports, not the check",
+      "effect": "Compliance fell from 93-99% to 61-62%",
+      "qualityMeasured": true,
+      "status": "Verified"
+    }
+  ],
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "none", "optional": "none" },
+  "requestPath": "none",
+  "runsHooks": false,
+  "alwaysLoaded": { "perSessionTokens": 0, "perSubagentTokens": 0 },
+  "userStateOutsideScope": false,
+  "agents": { "claude": { "minVersion": "2.1.281", "scopes": [] } },
+  "conflicts": [],
+  "revisit": ["agents rank or dedupe skills natively"],
+  "maintenance": "Owned engine check, maintained with the engine.",
+  "freshnessDays": 180
+}

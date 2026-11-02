@@ -1,0 +1,38 @@
+{
+  "id": "kompressor",
+  "name": "OptScale Kompressor",
+  "kind": "service",
+  "origin": "third-party",
+  "license": "MIT",
+  "roles": ["request-compression"],
+  "exclusive": true,
+  "verdict": "Hold",
+  "defaultOn": false,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "OptScale's cache-preserving request compressor, run as a proxy. Held and watched: the only result is vendor-run on Codex (cost -22.7%, solve rate 81.1% against 82.2%), and the proxy puts it in the request path, which v8 doesn't allow.",
+  "evidence": [
+    {
+      "id": "kompressor-optscale",
+      "source": "https://optscale.ai/blog/context-compression-coding-agents (OptScale blog: context compression for coding agents), with https://github.com/hystax/optscale-kompressor",
+      "date": "2026-10-14",
+      "measuredBy": "vendor",
+      "tier": "E2",
+      "setting": "Vendor-run on Codex",
+      "effect": "Cost -22.7%; solve rate 81.1% against 82.2%",
+      "qualityMeasured": true,
+      "status": "Verified"
+    }
+  ],
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "every request passes through its proxy (where the proxy runs wasn't reviewed)", "optional": "not reviewed" },
+  "requestPath": "proxy",
+  "runsHooks": false,
+  "alwaysLoaded": { "perSessionTokens": 0, "perSubagentTokens": 0 },
+  "userStateOutsideScope": false,
+  "agents": { "claude": { "minVersion": "2.1.281", "scopes": [] } },
+  "conflicts": [],
+  "revisit": ["ships without a proxy, with independent evidence"],
+  "maintenance": "Vendor repository created 2026-10-14; release cadence not reviewed.",
+  "freshnessDays": 90
+}

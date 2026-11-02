@@ -1,0 +1,54 @@
+{
+  "id": "command-map",
+  "name": "Project command map",
+  "kind": "content",
+  "origin": "owned",
+  "license": "MIT",
+  "roles": ["command-map"],
+  "exclusive": false,
+  "verdict": "Trial",
+  "defaultOn": true,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "Quick checks and full acceptance commands for one repository, confirmed by the user. Offered only when the commands can't be found in standard files or need a Windows form.",
+  "evidence": [
+    {
+      "id": "context-files-arxiv-2602-11988",
+      "source": "https://arxiv.org/abs/2602.11988",
+      "date": "2026-09-29",
+      "measuredBy": "independent",
+      "tier": "E1",
+      "setting": "repository context files in general; useful for non-standard practices, overviews unhelpful",
+      "effect": "no general gain at over 20% more cost on average; non-discoverable commands count as a non-standard practice (inference)",
+      "qualityMeasured": true,
+      "status": "Inferred"
+    }
+  ],
+  "killTest": {
+    "id": "K-CMDMAP",
+    "hypothesis": "A command map shortens the path to a passing check where commands aren't discoverable",
+    "baseline": "No map",
+    "pass": "Median turns to the first passing acceptance run lower by at least 1, and wins",
+    "budget": "10 tasks in 3 such repos x 2 arms x 2 runs",
+    "ifFails": "Offered only on request",
+    "scheduled": "v8.0 maintainer reference bench, first run after release"
+  },
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "none", "optional": "none" },
+  "requestPath": "none",
+  "runsHooks": false,
+  "alwaysLoaded": { "perSessionTokens": 100, "perSubagentTokens": 100 },
+  "userStateOutsideScope": false,
+  "agents": {
+    "claude": {
+      "minVersion": "2.1.281",
+      "testedVersion": "2.1.303",
+      "scopes": ["project", "local"],
+      "content": ["content/rules/60-command-map.md"]
+    }
+  },
+  "conflicts": [],
+  "revisit": ["K-CMDMAP result"],
+  "maintenance": "Owned template; the commands come from the user's answers.",
+  "freshnessDays": 180
+}

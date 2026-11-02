@@ -1,0 +1,67 @@
+{
+  "id": "lsp",
+  "name": "Official LSP plugins",
+  "kind": "plugin",
+  "origin": "first-party",
+  "license": "Apache-2.0",
+  "roles": ["code-navigation"],
+  "exclusive": false,
+  "verdict": "Trial",
+  "defaultOn": true,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "Enables the official language-server plugin for each language whose server is already on PATH, so the agent can look up definitions and references instead of searching text. Installs no servers itself.",
+  "evidence": [
+    {
+      "id": "lsp-mechanism",
+      "source": "PLAYBOOK.md v7 (use once checks pass; not paired-tested)",
+      "date": "2026-10",
+      "measuredBy": "none",
+      "tier": "E4",
+      "setting": "mechanism only",
+      "effect": "symbol lookups instead of text search; type errors found earlier (expected, not measured)",
+      "qualityMeasured": false,
+      "status": "Assumption"
+    }
+  ],
+  "killTest": {
+    "id": "K-LSP",
+    "hypothesis": "LSP plugins help on typed code",
+    "baseline": "Same config without LSP",
+    "pass": "Wins, or the pass-rate interval lies above 0 at a cost ratio no higher than 1.05",
+    "budget": "20 tasks (10 TypeScript, 10 Python) x 2 arms x 2 runs",
+    "ifFails": "Off by default; offered as an option",
+    "scheduled": "v8.0 maintainer reference bench, first run after release"
+  },
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "none", "optional": "none" },
+  "requestPath": "none",
+  "runsHooks": false,
+  "alwaysLoaded": { "perSessionTokens": 0, "perSubagentTokens": 0 },
+  "userStateOutsideScope": false,
+  "agents": {
+    "claude": {
+      "minVersion": "2.1.281",
+      "testedVersion": "2.1.303",
+      "scopes": ["user", "local"],
+      "install": [
+        { "plugin": "clangd-lsp@claude-plugins-official", "marketplace": "claude-plugins-official", "bin": "clangd" },
+        { "plugin": "csharp-lsp@claude-plugins-official", "marketplace": "claude-plugins-official", "bin": "csharp-ls" },
+        { "plugin": "gopls-lsp@claude-plugins-official", "marketplace": "claude-plugins-official", "bin": "gopls" },
+        { "plugin": "jdtls-lsp@claude-plugins-official", "marketplace": "claude-plugins-official", "bin": "jdtls" },
+        { "plugin": "kotlin-lsp@claude-plugins-official", "marketplace": "claude-plugins-official", "bin": "kotlin-lsp" },
+        { "plugin": "lua-lsp@claude-plugins-official", "marketplace": "claude-plugins-official", "bin": "lua-language-server" },
+        { "plugin": "php-lsp@claude-plugins-official", "marketplace": "claude-plugins-official", "bin": "intelephense" },
+        { "plugin": "pyright-lsp@claude-plugins-official", "marketplace": "claude-plugins-official", "bin": "pyright-langserver" },
+        { "plugin": "ruby-lsp@claude-plugins-official", "marketplace": "claude-plugins-official", "bin": "ruby-lsp" },
+        { "plugin": "rust-analyzer-lsp@claude-plugins-official", "marketplace": "claude-plugins-official", "bin": "rust-analyzer" },
+        { "plugin": "swift-lsp@claude-plugins-official", "marketplace": "claude-plugins-official", "bin": "sourcekit-lsp" },
+        { "plugin": "typescript-lsp@claude-plugins-official", "marketplace": "claude-plugins-official", "bin": "typescript-language-server" }
+      ]
+    }
+  },
+  "conflicts": [],
+  "revisit": ["K-LSP result", "a new official LSP plugin"],
+  "maintenance": "First-party plugins from the official marketplace; the language servers are the user's own installs.",
+  "freshnessDays": 90
+}

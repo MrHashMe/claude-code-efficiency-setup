@@ -1,0 +1,82 @@
+{
+  "id": "caveman",
+  "name": "Caveman (plugin)",
+  "kind": "plugin",
+  "origin": "third-party",
+  "license": "unknown",
+  "roles": ["output-length"],
+  "exclusive": true,
+  "verdict": "Hold",
+  "defaultOn": false,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "Third-party terse-output rules as a plugin. Held: the built-in Concise style does the same job without an install, and paired tests disagree on any saving. Its agent hooks send usage stats by default since v3.0.0. About 1,000 always-loaded tokens by its own v7-era estimate. Its CLI, proxy and cloud router are a separate Reject (caveman-cli).",
+  "evidence": [
+    {
+      "id": "caveman-jetbrains-2026-07",
+      "source": "https://blog.jetbrains.com/ai/2026/07/speak-to-ai-agents-like-cavemen-tosave-tokens/",
+      "date": "2026-07",
+      "measuredBy": "independent",
+      "tier": "E1",
+      "setting": "82 paired tasks",
+      "effect": "Output tokens -8.5%; about 10% of cost at best",
+      "qualityMeasured": true,
+      "status": "Verified"
+    },
+    {
+      "id": "caveman-dasein-bench",
+      "source": "https://github.com/daseinlabs/code-compression-bench",
+      "date": "2026-09-22",
+      "measuredBy": "vendor",
+      "tier": "E2",
+      "setting": "Sponsor-run benchmark",
+      "effect": "Total cost -19%",
+      "qualityMeasured": true,
+      "status": "Verified"
+    },
+    {
+      "id": "caveman-honest-numbers",
+      "source": "https://github.com/JuliusBrussee/caveman/blob/v4.0.1/docs/HONEST-NUMBERS.md",
+      "date": "2026-10-13",
+      "measuredBy": "vendor",
+      "tier": "E5",
+      "setting": "Caveman's own test, n = 10, against an \"Answer concisely.\" control; output size only, so no higher than E5",
+      "effect": "Output only 3% smaller than the control",
+      "qualityMeasured": false,
+      "status": "Verified"
+    },
+    {
+      "id": "caveman-issue-727",
+      "source": "https://github.com/JuliusBrussee/caveman/issues/727 (Benchmark results and three questions - 0 savings E2E)",
+      "date": "2026-07-21",
+      "measuredBy": "user-generated",
+      "tier": "E5",
+      "setting": "300 runs per arm on Opus 4.8",
+      "effect": "Output -44.1%, total cost +0.06%",
+      "qualityMeasured": false,
+      "status": "Verified"
+    },
+    {
+      "id": "caveman-v3.0.0-telemetry",
+      "source": "https://github.com/JuliusBrussee/caveman/releases/tag/v3.0.0",
+      "date": "2026-09-30",
+      "measuredBy": "none",
+      "tier": "E4",
+      "setting": "Release notes",
+      "effect": "The CLI and its agent hooks send usage stats with a random install ID and the IP address, on by default",
+      "qualityMeasured": false,
+      "status": "Verified"
+    }
+  ],
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "usage stats with a random install ID and the IP address, on by default since v3.0.0", "optional": "the CLI's Caveman Cloud router (see caveman-cli)" },
+  "requestPath": "none",
+  "runsHooks": true,
+  "alwaysLoaded": { "perSessionTokens": 1000, "perSubagentTokens": 0 },
+  "userStateOutsideScope": true,
+  "agents": { "claude": { "minVersion": "2.1.281", "scopes": [] } },
+  "conflicts": ["concise", "claude-token-efficient"],
+  "revisit": ["an independent paired test shows lower cost per accepted task than Concise"],
+  "maintenance": "Third-party plugin with frequent releases (v4.0.1 on 2026-10-13).",
+  "freshnessDays": 90
+}

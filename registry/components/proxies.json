@@ -1,0 +1,60 @@
+{
+  "id": "proxies",
+  "name": "Proxies and gateways",
+  "kind": "service",
+  "origin": "third-party",
+  "license": "unknown",
+  "roles": ["request-compression"],
+  "exclusive": true,
+  "verdict": "Reject",
+  "defaultOn": false,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "Tools that sit between the agent and the model provider to shrink or reshape requests: pxpipe, Edgee, Context Gateway, cache-fix proxies, RTK's optional rtk-proxy, and Caveman's proxy and cloud router (see also rtk and caveman-cli). Rejected on a hard constraint: v8 puts nothing in the request path. Only vendor claims support them. Licenses differ per tool.",
+  "evidence": [
+    {
+      "id": "pxpipe-repo",
+      "source": "https://github.com/teamchong/pxpipe",
+      "date": "2026-05-20",
+      "measuredBy": "none",
+      "tier": "E4",
+      "setting": "Repository description; its place in the request path wasn't confirmed",
+      "effect": "Renders text context as images (MIT)",
+      "qualityMeasured": false,
+      "status": "Verified"
+    },
+    {
+      "id": "edgee-repo",
+      "source": "https://github.com/edgee-ai/edgee",
+      "date": "2026-03-16",
+      "measuredBy": "none",
+      "tier": "E4",
+      "setting": "Repository description",
+      "effect": "A hosted gateway (Apache-2.0)",
+      "qualityMeasured": false,
+      "status": "Verified"
+    },
+    {
+      "id": "context-gateway-repo",
+      "source": "https://github.com/Compresr-ai/Context-Gateway",
+      "date": "2026-02-10",
+      "measuredBy": "none",
+      "tier": "E4",
+      "setting": "Repository description",
+      "effect": "An agent proxy (Apache-2.0)",
+      "qualityMeasured": false,
+      "status": "Verified"
+    }
+  ],
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "every request passes through the proxy; a hosted gateway sends it to a third party", "optional": "not reviewed" },
+  "requestPath": "proxy",
+  "runsHooks": false,
+  "alwaysLoaded": { "perSessionTokens": 0, "perSubagentTokens": 0 },
+  "userStateOutsideScope": false,
+  "agents": { "claude": { "minVersion": "2.1.281", "scopes": [] } },
+  "conflicts": [],
+  "revisit": [],
+  "maintenance": "Several third-party projects, not tracked one by one.",
+  "freshnessDays": 90
+}

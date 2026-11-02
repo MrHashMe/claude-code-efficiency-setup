@@ -1,0 +1,45 @@
+{
+  "id": "precedence",
+  "name": "Precedence sentence",
+  "kind": "content",
+  "origin": "owned",
+  "license": "MIT",
+  "roles": ["precedence"],
+  "exclusive": false,
+  "verdict": "Adopt",
+  "defaultOn": true,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "One sentence telling the agent to follow the existing code when user-wide rules disagree with it, and to point out the conflict.",
+  "evidence": [
+    {
+      "id": "precedence-arxiv-2610-30571",
+      "source": "https://arxiv.org/abs/2610.30571",
+      "date": "2026-10-22",
+      "measuredBy": "independent",
+      "tier": "E1",
+      "setting": "320 runs on Claude Code and Codex with stale instruction files",
+      "effect": "following the existing code rose from 4.2% to 91.4% with the sentence",
+      "qualityMeasured": true,
+      "status": "Verified"
+    }
+  ],
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "none", "optional": "none" },
+  "requestPath": "none",
+  "runsHooks": false,
+  "alwaysLoaded": { "perSessionTokens": 25, "perSubagentTokens": 25 },
+  "userStateOutsideScope": false,
+  "agents": {
+    "claude": {
+      "minVersion": "2.1.281",
+      "testedVersion": "2.1.303",
+      "scopes": ["user", "project", "local"],
+      "content": ["content/rules/10-precedence.md"]
+    }
+  },
+  "conflicts": [],
+  "revisit": ["a replication on current models finds no effect"],
+  "maintenance": "Owned text, maintained in this repository.",
+  "freshnessDays": 180
+}

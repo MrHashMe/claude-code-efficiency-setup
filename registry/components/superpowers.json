@@ -1,0 +1,60 @@
+{
+  "id": "superpowers",
+  "name": "Superpowers",
+  "kind": "pack",
+  "origin": "third-party",
+  "license": "MIT",
+  "roles": ["workflow-pack"],
+  "exclusive": true,
+  "verdict": "Hold",
+  "defaultOn": false,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "A workflow-discipline pack of skills with session-start injection, about 1,600 to 1,900 tokens per session (user report), companion telemetry on. Held: the one independent test (v5.0.5 on Codex) found 47.8% against 45.6% solved, no significance test, about 40% more tokens; v7 is untested. verify flags versions below 7.0.0, which fixed a Windows hole.",
+  "evidence": [
+    {
+      "id": "agentstackbench-superpowers",
+      "source": "https://github.com/Nobbettt/AgentStackBench",
+      "date": "2026-06-28",
+      "measuredBy": "user-generated",
+      "tier": "E1",
+      "setting": "Superpowers 5.0.5 on Codex with gpt-5.4 at high effort, 500 tasks; not Claude Code, not v7",
+      "effect": "47.8% solved against 45.6% without it, no significance test; about 40% more tokens",
+      "qualityMeasured": true,
+      "status": "Verified"
+    },
+    {
+      "id": "agent-profiles-37",
+      "source": "https://github.com/guisam/Agent-Profiles/issues/37 (Integrate with obra/superpowers)",
+      "date": "2026-10-30",
+      "measuredBy": "user-generated",
+      "tier": "E5",
+      "setting": "User report",
+      "effect": "Adds 1,600 to 1,900 tokens per session",
+      "qualityMeasured": false,
+      "status": "Verified"
+    },
+    {
+      "id": "superpowers-v7.0.0",
+      "source": "https://github.com/obra/superpowers/releases/tag/v7.0.0 (with PR #2393)",
+      "date": "2026-10-10",
+      "measuredBy": "none",
+      "tier": "E4",
+      "setting": "Release notes",
+      "effect": "Fixed a Windows hole that let a repository plant bash.cmd or where.bat to run at session start on machines without Git in Program Files",
+      "qualityMeasured": false,
+      "status": "Verified"
+    }
+  ],
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "companion telemetry on (docs/v8/02-landscape.md; not re-checked)", "optional": "not reviewed" },
+  "requestPath": "none",
+  "runsHooks": true,
+  "alwaysLoaded": { "perSessionTokens": 1900, "perSubagentTokens": 0 },
+  "userStateOutsideScope": false,
+  "agents": { "claude": { "minVersion": "2.1.281", "scopes": [], "detect": { "plugins": ["superpowers"], "minVersion": "7.0.0" } } },
+  "conflicts": ["ecc"],
+  "revisit": ["an independent paired result on Claude Code for v7 or later"],
+  "maintenance": "Third-party pack (obra); v7.0.1 on 2026-10-21; no CI.",
+  "freshnessDays": 90
+}

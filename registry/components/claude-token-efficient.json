@@ -1,0 +1,38 @@
+{
+  "id": "claude-token-efficient",
+  "name": "claude-token-efficient",
+  "kind": "content",
+  "origin": "third-party",
+  "license": "unknown",
+  "roles": ["output-length"],
+  "exclusive": true,
+  "verdict": "Assess",
+  "defaultOn": false,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "A 352-byte set of terse-output rules, always loaded (about 101 tokens at bytes / 3.5). Not offered by setup; an optional bench arm against the built-in Concise style. The only measurement found is sponsor-run and not significant.",
+  "evidence": [
+    {
+      "id": "thol-claude-token-efficient",
+      "source": "https://pi-infected.github.io/token-harness-optimizer-leaderboard/ (Token harness optimizer leaderboard)",
+      "date": "2026-07-18",
+      "measuredBy": "vendor",
+      "tier": "E5",
+      "setting": "Sponsor-run leaderboard (THOL); quality results not recorded in the v8 docs, so no higher than E5",
+      "effect": "Cost -4.8%, not significant",
+      "qualityMeasured": false,
+      "status": "Verified"
+    }
+  ],
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "none", "optional": "none" },
+  "requestPath": "none",
+  "runsHooks": false,
+  "alwaysLoaded": { "perSessionTokens": 101, "perSubagentTokens": 101 },
+  "userStateOutsideScope": false,
+  "agents": { "claude": { "minVersion": "2.1.281", "scopes": [] } },
+  "conflicts": ["concise", "caveman"],
+  "revisit": ["beats Concise on the maintainer bench"],
+  "maintenance": "Small third-party rules file; its 352-byte size wasn't re-read on 2026-11-01.",
+  "freshnessDays": 90
+}

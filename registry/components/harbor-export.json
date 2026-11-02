@@ -1,0 +1,38 @@
+{
+  "id": "harbor-export",
+  "name": "Harbor task format export",
+  "kind": "engine",
+  "origin": "owned",
+  "license": "MIT",
+  "roles": ["bench-export"],
+  "exclusive": false,
+  "verdict": "Assess",
+  "defaultOn": false,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "Exporting personal bench tasks in the Harbor task format, so they can run in other harnesses. Assess: the format exists but has few users. On the roadmap for v8.3 or later, and built only if a user asks for it.",
+  "evidence": [
+    {
+      "id": "harbor-repo",
+      "source": "https://github.com/harbor-framework/harbor",
+      "date": "2026-11-01",
+      "measuredBy": "none",
+      "tier": "E4",
+      "setting": "Repository (Apache-2.0), from the Terminal-Bench team",
+      "effect": "A task and runner format other harnesses can use",
+      "qualityMeasured": false,
+      "status": "Verified"
+    }
+  ],
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "none", "optional": "none" },
+  "requestPath": "none",
+  "runsHooks": false,
+  "alwaysLoaded": { "perSessionTokens": 0, "perSubagentTokens": 0 },
+  "userStateOutsideScope": false,
+  "agents": { "claude": { "minVersion": "2.1.281", "scopes": [] } },
+  "conflicts": [],
+  "revisit": ["a user asks for it"],
+  "maintenance": "Not built; would be maintained with the engine.",
+  "freshnessDays": 180
+}

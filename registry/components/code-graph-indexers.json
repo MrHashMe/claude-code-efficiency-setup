@@ -1,0 +1,60 @@
+{
+  "id": "code-graph-indexers",
+  "name": "Code-graph indexers (codegraph, Graft)",
+  "kind": "plugin",
+  "origin": "third-party",
+  "license": "unknown",
+  "roles": ["code-navigation"],
+  "exclusive": true,
+  "verdict": "Hold",
+  "defaultOn": false,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "MCP servers with hooks that index the repository as a graph for navigation: codegraph and Graft. Held: codegraph showed no significant effect (THOL, sponsor-run), and Graft's 33 against 27 solved on 50 SWE-bench tasks is the vendor's own. The official LSP plugins plus Grep do the job. Serena has its own entry. Always-loaded size not recorded.",
+  "evidence": [
+    {
+      "id": "thol-codegraph",
+      "source": "https://pi-infected.github.io/token-harness-optimizer-leaderboard/ (Token harness optimizer leaderboard)",
+      "date": "2026-07-18",
+      "measuredBy": "vendor",
+      "tier": "E5",
+      "setting": "Sponsor-run leaderboard (THOL), codegraph; quality results not recorded in the v8 docs, so no higher than E5",
+      "effect": "Cost ratio 1.049, not significant",
+      "qualityMeasured": false,
+      "status": "Verified"
+    },
+    {
+      "id": "graft-vendor-swebench",
+      "source": "PLAYBOOK.md v7.3, Graft row (https://github.com/trailhq/Graft)",
+      "date": "2026-09-29",
+      "measuredBy": "vendor",
+      "tier": "E2",
+      "setting": "Vendor's own SWE-bench run, 50 tasks; its token and cost savings count only tasks both sides solved; not re-read for v8",
+      "effect": "33 tasks solved against 27",
+      "qualityMeasured": true,
+      "status": "Unknown"
+    },
+    {
+      "id": "graft-v7-review",
+      "source": "PLAYBOOK.md v7.3, Graft row",
+      "date": "2026-09-29",
+      "measuredBy": "none",
+      "tier": "E4",
+      "setting": "v7 review; not re-checked for v8",
+      "effect": "graft init wires four hooks, a statusline and an MCP server, and copies the hooks and server into user-level settings unless --no-global is passed; anonymous usage events by default",
+      "qualityMeasured": false,
+      "status": "Unknown"
+    }
+  ],
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "Graft sends anonymous usage events by default (v7 notes); codegraph not reviewed", "optional": "not reviewed" },
+  "requestPath": "none",
+  "runsHooks": true,
+  "alwaysLoaded": { "perSessionTokens": 0, "perSubagentTokens": 0 },
+  "userStateOutsideScope": true,
+  "agents": { "claude": { "minVersion": "2.1.281", "scopes": [] } },
+  "conflicts": ["lsp", "serena"],
+  "revisit": ["independent paired evidence on Claude Code"],
+  "maintenance": "Third-party projects (https://github.com/colbymchenry/codegraph, https://github.com/trailhq/Graft); release cadence not reviewed.",
+  "freshnessDays": 90
+}

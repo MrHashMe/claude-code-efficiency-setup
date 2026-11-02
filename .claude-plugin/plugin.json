@@ -1,11 +1,11 @@
 {
   "name": "efficiency-playbook",
   "displayName": "Efficiency Playbook",
-  "version": "7.4.0",
-  "description": "Installs, upgrades or rolls back an evidence-based, token-efficient Claude Code setup on Windows by running Part 1 of the bundled playbook, asking before each change. Type /efficiency-playbook:setup in a session.",
+  "version": "8.0.0",
+  "description": "Installs, verifies and removes an evidence-based, token-efficient Claude Code setup at user, project or local scope. A tested engine shows every change with its token cost, asks first, and can undo each apply. Windows, macOS and Linux. Type /efficiency-playbook:setup in a session.",
   "author": { "name": "MrHashMe", "url": "https://github.com/MrHashMe" },
   "homepage": "https://github.com/MrHashMe/efficiency-playbook#readme",
   "repository": "https://github.com/MrHashMe/efficiency-playbook",
   "license": "MIT",
-  "keywords": ["windows", "token-efficiency", "setup", "lsp", "playbook"]
+  "keywords": ["token-efficiency", "setup", "scopes", "lsp", "cross-platform", "benchmark"]
 }

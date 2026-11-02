@@ -1,0 +1,47 @@
+{
+  "id": "aa-batch",
+  "name": "A/A batch for the noise floor",
+  "kind": "engine",
+  "origin": "owned",
+  "license": "MIT",
+  "roles": ["bench"],
+  "exclusive": false,
+  "verdict": "Trial",
+  "defaultOn": false,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "An optional bench batch that runs the same arm twice as if it were two arms, to show the noise floor on this machine and repository before an A/B result is trusted. Recommended once per repository. Costs one extra arm pair; interleaving the arms alone is the simpler alternative.",
+  "evidence": [
+    {
+      "id": "anthropic-infrastructure-noise",
+      "source": "https://www.anthropic.com/engineering/infrastructure-noise (Infrastructure noise in agentic coding evals)",
+      "date": "2026-02-05",
+      "measuredBy": "vendor",
+      "tier": "E4",
+      "setting": "The ledger calls it E1-adjacent: a vendor-run study of eval infrastructure, not of an A/A batch",
+      "effect": "Environment changes alone move agent scores by effect-sized amounts",
+      "qualityMeasured": true,
+      "status": "Verified"
+    }
+  ],
+  "killTest": {
+    "id": "K-AA",
+    "hypothesis": "An A/A batch changes decisions",
+    "baseline": "Interleaving only",
+    "pass": "In the first 10 benches, at least one A/A result wider than the minimum detectable effect, or one decision changed",
+    "budget": "10 benches",
+    "ifFails": "Documentation only",
+    "scheduled": "Over the first 10 bench runs after bench v2 ships in v8.0; no date set"
+  },
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "none", "optional": "none" },
+  "requestPath": "none",
+  "runsHooks": false,
+  "alwaysLoaded": { "perSessionTokens": 0, "perSubagentTokens": 0 },
+  "userStateOutsideScope": false,
+  "agents": { "claude": { "minVersion": "2.1.281", "scopes": [] } },
+  "conflicts": [],
+  "revisit": ["K-AA result"],
+  "maintenance": "Owned engine feature, maintained with the engine.",
+  "freshnessDays": 180
+}

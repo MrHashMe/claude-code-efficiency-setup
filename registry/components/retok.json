@@ -1,0 +1,47 @@
+{
+  "id": "retok",
+  "name": "retok (accounting cross-check)",
+  "kind": "engine",
+  "origin": "third-party",
+  "license": "MIT",
+  "roles": ["usage-accounting"],
+  "exclusive": false,
+  "verdict": "Trial",
+  "defaultOn": false,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "A local token-analytics tool with no dependencies, which the maintainer would run on the same transcripts to cross-check the engine's token accounting. Young (created 2026-07-06). Maintainer only; never installed for users. The engine's own accounting is the simpler alternative.",
+  "evidence": [
+    {
+      "id": "retok-repo",
+      "source": "https://github.com/d-date/retok",
+      "date": "2026-07-06",
+      "measuredBy": "none",
+      "tier": "E4",
+      "setting": "Repository: MIT, no dependencies",
+      "effect": "Reads local session logs for tokens, cache hits and cost; no accuracy check found",
+      "qualityMeasured": false,
+      "status": "Verified"
+    }
+  ],
+  "killTest": {
+    "id": "K-RETOK",
+    "hypothesis": "An independent accounting cross-check is useful",
+    "baseline": "Engine accounting",
+    "pass": "Totals match within 2% on 20 transcripts and it makes no network calls",
+    "budget": "1 week",
+    "ifFails": "Dropped; engine accounting stands alone",
+    "scheduled": "Not scheduled; maintainer only, within a 1-week time box"
+  },
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "none expected; K-RETOK checks that it makes no network calls", "optional": "none" },
+  "requestPath": "none",
+  "runsHooks": false,
+  "alwaysLoaded": { "perSessionTokens": 0, "perSubagentTokens": 0 },
+  "userStateOutsideScope": false,
+  "agents": { "claude": { "minVersion": "2.1.281", "scopes": [] } },
+  "conflicts": [],
+  "revisit": ["K-RETOK result"],
+  "maintenance": "Young third-party project, used by the maintainer only.",
+  "freshnessDays": 90
+}

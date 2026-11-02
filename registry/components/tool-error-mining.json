@@ -1,0 +1,47 @@
+{
+  "id": "tool-error-mining",
+  "name": "Repeated tool-error mining (TokenEconomizer idea TE-T2)",
+  "kind": "engine",
+  "origin": "owned",
+  "license": "MIT",
+  "roles": ["tool-error-rules"],
+  "exclusive": false,
+  "verdict": "Trial",
+  "defaultOn": false,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "A transcript scan that finds repeated failed tool calls, such as wrong command forms or arguments, and turns the repairs into proposed rules. Proposed rules go through the normal plan and consent. Costs a transcript scan; nothing per session until a rule is accepted.",
+  "evidence": [
+    {
+      "id": "tokeneconomizer-te-t2",
+      "source": "https://github.com/microsoft/TokenEconomizer (idea labeled TE-T2 in docs/v8/02-landscape.md section 3)",
+      "date": "2026-10-13",
+      "measuredBy": "none",
+      "tier": "E4",
+      "setting": "Design idea; v8's version is unbuilt and unmeasured",
+      "effect": "Repeated tool errors waste turns; a rule naming the repair could prevent repeats (expected, not measured)",
+      "qualityMeasured": false,
+      "status": "Assumption"
+    }
+  ],
+  "killTest": {
+    "id": "K-TE-T2",
+    "hypothesis": "Repeated tool errors are common enough to mine",
+    "baseline": "None",
+    "pass": "At least 2 recurring repairs per repo in 30 days, and a gain of at least 3%",
+    "budget": "30 days",
+    "ifFails": "Dropped",
+    "scheduled": "v8.3 or later (roadmap estimate: unplanned)"
+  },
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "none", "optional": "none" },
+  "requestPath": "none",
+  "runsHooks": false,
+  "alwaysLoaded": { "perSessionTokens": 0, "perSubagentTokens": 0 },
+  "userStateOutsideScope": false,
+  "agents": { "claude": { "minVersion": "2.1.281", "scopes": [] } },
+  "conflicts": [],
+  "revisit": ["K-TE-T2 result"],
+  "maintenance": "Owned engine feature, maintained with the engine.",
+  "freshnessDays": 180
+}

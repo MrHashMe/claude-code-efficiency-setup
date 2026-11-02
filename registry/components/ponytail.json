@@ -1,0 +1,82 @@
+{
+  "id": "ponytail",
+  "name": "Ponytail",
+  "kind": "plugin",
+  "origin": "third-party",
+  "license": "MIT",
+  "roles": ["minimal-change"],
+  "exclusive": true,
+  "verdict": "Trial",
+  "defaultOn": false,
+  "reversible": true,
+  "verdictDate": "2026-11-01",
+  "summary": "Hook-injected rules that push toward the simplest working change. Pinned to v5.3.3 (4.10.2 fixed a security issue), with a subagent matcher and a standing rule that keeps tests in the project's own framework.",
+  "evidence": [
+    {
+      "id": "ponytail-vendor-2026-10-07",
+      "source": "https://github.com/DietrichGebert/ponytail/blob/v5.3.3/benchmarks/results/2026-10-07-agentic.md",
+      "date": "2026-10-07",
+      "measuredBy": "vendor",
+      "tier": "E2",
+      "setting": "Opus 5.5, claude -p, CLI 2.1.288, 39 tasks x 5 runs x 3 arms, Bash disabled, CLAUDE.md loading and auto memory off",
+      "effect": "cost -26% [-36, -16] vs no add-on",
+      "qualityMeasured": true,
+      "status": "Verified"
+    },
+    {
+      "id": "ponytail-jetbrains-2026-07",
+      "source": "https://blog.jetbrains.com/ai/2026/07/ponytail-skill-claude-tested/",
+      "date": "2026-07",
+      "measuredBy": "independent",
+      "tier": "E1",
+      "setting": "Ponytail 4.8.4, Claude Code 2.1.201, Sonnet 5 at medium effort, 80 paired tasks",
+      "effect": "cost -10.3% (p = 0.004); not a test of v5",
+      "qualityMeasured": true,
+      "status": "Verified"
+    },
+    {
+      "id": "ponytail-issue-685",
+      "source": "https://github.com/DietrichGebert/ponytail/issues/685",
+      "date": "2026-08-04",
+      "measuredBy": "user-generated",
+      "tier": "E5",
+      "setting": "Ponytail 4.x, Sonnet 5, Claude Code 2.1.220",
+      "effect": "cost +0.7% [-6.5, +9.8] vs no add-on and +6.9% vs a one-sentence prompt asking for a runnable check",
+      "qualityMeasured": true,
+      "status": "Verified"
+    }
+  ],
+  "killTest": {
+    "id": "K-PONYTAIL",
+    "hypothesis": "Ponytail 5.3.3 beats both no add-on and the one-line rule",
+    "baseline": "No add-on; one-line rule",
+    "pass": "Wins against both, with Bash on, instruction files present and subagents allowed",
+    "budget": "40 tasks x 3 arms x 2 runs; 2 weeks",
+    "ifFails": "Assess; existing users see the result with an offer to remove",
+    "scheduled": "maintainer reference bench after v8.0"
+  },
+  "platforms": ["windows", "macos", "linux", "wsl"],
+  "egress": { "default": "none", "optional": "a webhook, only if the user sets a URL" },
+  "requestPath": "none",
+  "runsHooks": true,
+  "alwaysLoaded": { "perSessionTokens": 1100, "perSubagentTokens": 700 },
+  "userStateOutsideScope": true,
+  "agents": {
+    "claude": {
+      "minVersion": "2.1.290",
+      "testedVersion": "2.1.303",
+      "scopes": ["user", "local"],
+      "needsEnv": true,
+      "content": ["content/rules/40-ponytail.md"],
+      "settings": {
+        "/extraKnownMarketplaces/ponytail": { "source": { "source": "github", "repo": "DietrichGebert/ponytail", "ref": "v5.3.3" } },
+        "/env/PONYTAIL_SUBAGENT_MATCHER": "^(?!(explore|plan)$)"
+      },
+      "install": [{ "plugin": "ponytail@ponytail", "marketplace": "ponytail", "source": "DietrichGebert/ponytail", "ref": "v5.3.3", "sha": "7801d061243d7b753bad0e0b3c057cd250b11755" }]
+    }
+  },
+  "conflicts": ["yagni-line"],
+  "revisit": ["a new Ponytail release", "K-PONYTAIL result", "2027-02-01"],
+  "maintenance": "Single maintainer, no private security channel; pinned to v5.3.3.",
+  "freshnessDays": 90
+}
